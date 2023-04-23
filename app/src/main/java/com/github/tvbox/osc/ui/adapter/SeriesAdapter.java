@@ -1,6 +1,9 @@
 package com.github.tvbox.osc.ui.adapter;
 
 import android.graphics.Color;
+import android.view.View;
+import android.view.animation.BounceInterpolator;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,7 +26,9 @@ public class SeriesAdapter extends BaseQuickAdapter<VodInfo.VodSeries, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, VodInfo.VodSeries item) {
+        FrameLayout root = helper.getView(R.id.item_series_root);
         TextView tvSeries = helper.getView(R.id.tvSeries);
+        root.setOnFocusChangeListener(focusChangeListener);
         if (item.selected) {
             // takagen99: Added Theme Color
 //            tvSeries.setTextColor(mContext.getResources().getColor(R.color.color_theme));
@@ -33,4 +38,15 @@ public class SeriesAdapter extends BaseQuickAdapter<VodInfo.VodSeries, BaseViewH
         }
         helper.setText(R.id.tvSeries, item.name);
     }
+
+    private View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View itemView, boolean hasFocus) {
+                if (hasFocus)
+                    itemView.animate().scaleX(1.01f).scaleY(1.01f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
+                else
+                    itemView.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
+
+        }
+    };
 }

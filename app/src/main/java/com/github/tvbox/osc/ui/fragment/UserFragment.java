@@ -15,6 +15,7 @@ import com.github.tvbox.osc.bean.Movie;
 import com.github.tvbox.osc.bean.VodInfo;
 import com.github.tvbox.osc.cache.RoomDataManger;
 import com.github.tvbox.osc.event.ServerEvent;
+import com.github.tvbox.osc.ui.activity.AppsActivity;
 import com.github.tvbox.osc.ui.activity.CollectActivity;
 import com.github.tvbox.osc.ui.activity.DetailActivity;
 import com.github.tvbox.osc.ui.activity.DriveActivity;
@@ -59,6 +60,8 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
     private LinearLayout tvHistory;
     private LinearLayout tvCollect;
     private LinearLayout tvPush;
+    private LinearLayout tvApp;
+    private LinearLayout tvUserHome;
     public static HomeHotVodAdapter homeHotVodAdapter;
     private List<Movie.Video> homeSourceRec;
     public static TvRecyclerView tvHotListForGrid;
@@ -87,9 +90,9 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
             tvSearch.setVisibility(View.GONE);
         }
         if (!Hawk.get(HawkConfig.HOME_MENU_POSITION, true)) {
-            tvSetting.setVisibility(View.VISIBLE);
+            tvApp.setVisibility(View.VISIBLE);
         } else {
-            tvSetting.setVisibility(View.GONE);
+            tvApp.setVisibility(View.GONE);
         }
 
         super.onFragmentResume();
@@ -141,6 +144,10 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
         tvCollect.setOnFocusChangeListener(focusChangeListener);
         tvHotListForLine = findViewById(R.id.tvHotListForLine);
         tvHotListForGrid = findViewById(R.id.tvHotListForGrid);
+        tvUserHome = findViewById(R.id.tvUserHome);
+        tvApp = findViewById(R.id.tvApp);
+        tvApp.setOnClickListener(this);
+        tvApp.setOnFocusChangeListener(focusChangeListener);
         tvHotListForGrid.setHasFixedSize(true);
         tvHotListForGrid.setLayoutManager(new V7GridLayoutManager(this.mContext, 5));
         homeHotVodAdapter = new HomeHotVodAdapter();
@@ -200,11 +207,17 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
             @Override
             public void onItemPreSelected(TvRecyclerView parent, View itemView, int position) {
                 itemView.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
+                tvUserHome.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
                 itemView.animate().scaleX(1.05f).scaleY(1.05f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
+                if (position > 4){
+                    tvUserHome.setVisibility(View.GONE);
+                }else {
+                    tvUserHome.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -341,6 +354,8 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
             jumpActivity(CollectActivity.class);
         } else if (v.getId() == R.id.tvDrive) {
             jumpActivity(DriveActivity.class);
+        } else if (v.getId() == R.id.tvApp){
+            jumpActivity(AppsActivity.class);
         }
     }
 

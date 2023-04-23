@@ -12,7 +12,7 @@
     <string name="hm_exit">Press BACK again to EXIT</string>
     <string name="hm_exit_live">Press BACK again to exit LiveTV</string>
     <string name="hm_date1">dd MMM</string>
-    <string name="hm_date2">EE hh:mm aa</string>
+    <string name="hm_date2">HH:mm</string>
     <string name="hm_hist">History</string>
     <string name="hm_live">LiveTV</string>
     <string name="hm_search">Search</string>
@@ -167,5 +167,27 @@
     <string name="exo_track_role_closed_captions">CC</string>
     <string name="exo_track_bitrate">%1$.2f Mbps</string>
     <string name="exo_item_list">%1$s，%2$s</string>
+
+    <string name="det_url_name">Copy Link</string>
+    <string name="act_search_history">Search history</string>
+    // Color //
+    <string name="color_default">default</string>
+    <string name="color_red">Red</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_yellow">Yellow</string>
+    <string name="color_green">Green</string>
+    <string name="color_teel">Teel</string>
+    <string name="color_cyan">Cyan</string>
+    <string name="color_purple">Purple</string>
+    <string name="color_brown">Brown</string>
+    <string name="color_pink">Pink</string>
+    <string name="color_pink_1">PinkTeel</string>
+    // Toast //
+    <string name="toast_theme_change"> is applied,Please restart the app for the settings to take effect.</string>
+    <string name="copy_url_error">The current video address is empty!</string>
+    <string name="home_line_display">Single line display</string>
+    <string name="home_line_more_display">multi-line display</string>
+    <string name="home_line_methon_display">display method</string>
+    <string name="st_about">About</string>
 
 </resources>

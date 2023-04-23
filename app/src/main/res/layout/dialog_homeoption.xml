@@ -28,7 +28,7 @@
             android:shadowDy="0"
             android:shadowRadius="5"
             android:singleLine="true"
-            android:text="@string/dia_hm_icon"
+            android:text="主菜单选项"
             android:textColor="@color/color_FFFFFF"
             android:textSize="@dimen/ts_26"
             android:textStyle="bold"
@@ -54,7 +54,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hm_search"
+                android:text="显示方式"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/ts_24" />
 
@@ -100,7 +100,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/hm_setting"
+                android:text="应用选项"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/ts_24" />
 

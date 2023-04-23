@@ -28,7 +28,7 @@
                 android:layout_marginRight="@dimen/vs_20"
                 android:gravity="center_vertical|end"
                 android:text="空间名称"
-                android:textColor="@color/color_FF000000"
+                android:textColor="@color/media_center_dialog_title"
                 android:textSize="@dimen/ts_20" />
 
             <EditText
@@ -60,7 +60,7 @@
                 android:layout_marginRight="@dimen/vs_20"
                 android:gravity="center_vertical|end"
                 android:text="WebDAV地址"
-                android:textColor="@color/color_FF000000"
+                android:textColor="@color/media_center_dialog_title"
                 android:textSize="@dimen/ts_20" />
 
             <EditText
@@ -91,7 +91,7 @@
                 android:layout_marginRight="@dimen/vs_20"
                 android:gravity="center_vertical|end"
                 android:text="初始路径"
-                android:textColor="@color/color_FF000000"
+                android:textColor="@color/media_center_dialog_title"
                 android:textSize="@dimen/ts_20" />
 
             <EditText
@@ -122,7 +122,7 @@
                 android:layout_marginRight="@dimen/vs_20"
                 android:gravity="center_vertical|end"
                 android:text="用户名"
-                android:textColor="@color/color_FF000000"
+                android:textColor="@color/media_center_dialog_title"
                 android:textSize="@dimen/ts_20" />
 
             <EditText
@@ -153,7 +153,7 @@
                 android:layout_marginRight="@dimen/vs_20"
                 android:gravity="center_vertical|end"
                 android:text="密码"
-                android:textColor="@color/color_FF000000"
+                android:textColor="@color/media_center_dialog_title"
                 android:textSize="@dimen/ts_20" />
 
             <EditText
@@ -186,7 +186,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/vs_100"
             android:layout_marginRight="@dimen/vs_100"
-            android:background="@drawable/button_dialog_main"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="@drawable/rectangle_dialog_button_selector"
             android:focusable="true"
             android:gravity="center"
             android:padding="@dimen/vs_10"
@@ -199,7 +200,8 @@
             android:layout_width="@dimen/vs_120"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_dialog_main"
+            android:background="@drawable/rectangle_dialog_button_selector"
+            android:layout_marginBottom="@dimen/dp_10"
             android:focusable="true"
             android:gravity="center"
             android:padding="@dimen/vs_10"

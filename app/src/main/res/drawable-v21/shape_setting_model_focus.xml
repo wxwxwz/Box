@@ -29,8 +29,8 @@
                 android:state_focused="false"
                 android:state_pressed="false">
                 <shape>
-                    <corners android:radius="@dimen/vs_5" />
-                    <solid android:color="@color/color_3D3D3D_50" />
+                    <solid android:color="@color/white_10" />
+                    <corners android:radius="@dimen/movie_recommend_item_radius" />
                 </shape>
             </item>
         </selector>

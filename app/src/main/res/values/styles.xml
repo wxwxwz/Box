@@ -90,7 +90,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowFrame">@null</item>
-        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowFullscreen">true</item>
@@ -130,5 +130,37 @@
         <item name="android:indeterminateDuration">3500</item>
         <item name="android:indeterminateBehavior">repeat</item>
         <item name="android:minWidth">1dp</item>
+    </style>
+
+    <!-- progressbar 自定义绿色旋转风格-->
+    <style name="progressbarCircleDark" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/play_loading_dark</item>
+        <item name="android:indeterminateDuration">700</item>
+    </style>
+
+    <!-- progressbar 自定义白色旋转风格-->
+    <style name="progressbarCircleLight" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/play_loading_light</item>
+        <item name="android:indeterminateDuration">700</item>
+    </style>
+
+    <style name="mProgress_horizontal">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progressbar_horizontal</item><!-- progress_horizontal -->
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
+
+    <style name="NumInputButton">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/color_FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">15.0dip</item>
+        <item name="android:paddingBottom">15.0dip</item>
+        <item name="android:focusable">true</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
     </style>
 </resources>

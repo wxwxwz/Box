@@ -32,6 +32,7 @@
                     android:layout_marginRight="@dimen/vs_10"
                     android:layout_weight="1"
                     android:background="@drawable/input_search"
+                    android:textCursorDrawable="@drawable/text_cursor_selector"
                     android:hint="@string/act_search_txt"
                     android:inputType="text"
                     android:singleLine="true"
@@ -41,18 +42,35 @@
                     android:paddingRight="@dimen/vs_10"
                     android:textColor="@android:color/white"
                     android:textColorHint="#99FFFFFF"
-                    android:textSize="@dimen/ts_20" />
+                    android:textSize="@dimen/ts_20"
+                    android:gravity="left|center"
+                    />
 
                 <ImageView
-                    android:id="@+id/tvSearchCheckbox"
+                    android:id="@+id/tv_backspace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/vs_2"
+                    android:background="@drawable/rectangle_movie_category_item_selector"
+                    android:contentDescription="@string/app_name"
+                    android:focusable="true"
+                    android:paddingVertical="@dimen/vs_10"
+                    android:paddingHorizontal="@dimen/vs_10"
+                    android:src="@drawable/ic_backspace" />
+
+                <ImageView
+                    android:id="@+id/tvSearch"
                     android:layout_width="@dimen/vs_50"
                     android:layout_height="@dimen/vs_50"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/vs_2"
-                    android:background="@drawable/shape_user_focus"
+                    android:padding="@dimen/vs_10"
+                    android:background="@drawable/rectangle_movie_category_item_selector"
                     android:focusable="true"
-                    android:padding="@dimen/vs_5"
-                    android:src="@drawable/icon_filter" />
+                    android:gravity="center"
+                    android:src="@drawable/hm_search"
+                    />
 
             </LinearLayout>
 
@@ -62,46 +80,92 @@
                 android:layout_marginTop="@dimen/vs_10"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tvSearch"
-                    android:layout_width="0mm"
-                    android:layout_height="@dimen/vs_50"
-                    android:layout_weight="1"
-                    android:background="@drawable/shape_user_focus"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:text="@string/act_search"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/ts_20" />
-
-                <Space
-                    android:layout_width="@dimen/vs_10"
-                    android:layout_height="wrap_content" />
-
-                <TextView
+                <ImageView
                     android:id="@+id/tvClear"
-                    android:layout_width="0mm"
-                    android:layout_height="@dimen/vs_50"
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:background="@drawable/shape_user_focus"
+                    android:layout_height="@dimen/vs_50"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/vs_2"
+                    android:background="@drawable/rectangle_movie_category_item_selector"
                     android:focusable="true"
-                    android:gravity="center"
-                    android:text="@string/act_search_clr"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/ts_20" />
+                    android:padding="@dimen/vs_10"
+                    android:src="@drawable/ic_delete_sweep"
+                    />
+
+                <ImageView
+                    android:id="@+id/tvSearchCheckbox"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/vs_50"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/vs_2"
+                    android:padding="@dimen/vs_10"
+                    android:background="@drawable/rectangle_movie_category_item_selector"
+                    android:focusable="true"
+                    android:src="@drawable/ic_filter_alt" />
+
+                <ImageView
+                    android:id="@+id/tvRemoteSearch"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/vs_50"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/vs_2"
+                    android:padding="@dimen/vs_10"
+                    android:background="@drawable/rectangle_movie_category_item_selector"
+                    android:focusable="true"
+                    android:src="@drawable/ic_explore"
+                    android:contentDescription="@string/app_name"
+                    />
             </LinearLayout>
         </LinearLayout>
 
         <com.github.tvbox.osc.ui.tv.widget.SearchKeyboard
             android:id="@+id/keyBoardRoot"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/searchHistoryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/vs_10"
+                android:layout_marginTop="@dimen/vs_10"
+                android:text="@string/act_search_history"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/ts_22"
+                />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.github.tvbox.osc.wxwz.view.LabelListView
+                    android:id="@+id/mGridViewSHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    app:tv_horizontalSpacingWithMargins="@dimen/vs_5"
+                    app:tv_selectedItemIsCentered="true"
+                    app:tv_verticalSpacingWithMargins="@dimen/vs_5" />
+            </ScrollView>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/remoteRoot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
 
             <TextView
                 android:id="@+id/tvAddress"

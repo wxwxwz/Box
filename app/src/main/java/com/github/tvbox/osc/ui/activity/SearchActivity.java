@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,6 +39,11 @@ import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.SearchHelper;
 import com.github.tvbox.osc.util.js.JSEngine;
 import com.github.tvbox.osc.viewmodel.SourceViewModel;
+import com.github.tvbox.osc.wxwz.entity.GameLabel;
+import com.github.tvbox.osc.wxwz.inface.IOnItemClickListener;
+import com.github.tvbox.osc.wxwz.inface.IOnItemLongClickListener;
+import com.github.tvbox.osc.wxwz.util.SharedPreferencesUtil;
+import com.github.tvbox.osc.wxwz.view.LabelListView;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -74,8 +80,10 @@ public class SearchActivity extends BaseActivity {
     private TvRecyclerView mGridViewWord;
     SourceViewModel sourceViewModel;
     private EditText etSearch;
-    private TextView tvSearch;
-    private TextView tvClear;
+    private ImageView tvSearch;
+    private ImageView tvClear;
+    private ImageView tvBackspace;
+    private ImageView tvRemoteSearch;
     private SearchKeyboard keyboard;
     private TextView tvAddress;
     private ImageView ivQRCode;
@@ -85,6 +93,12 @@ public class SearchActivity extends BaseActivity {
     private ImageView tvSearchCheckbox;
     private static HashMap<String, String> mCheckSources = null;
     private SearchCheckboxDialog mSearchCheckboxDialog = null;
+    private LabelListView mLabelListView;
+    private ArrayList<GameLabel> labelList = new ArrayList<GameLabel>();
+
+    private int maxSaveHistory = 20;
+    private String saveSP = "SearchActivity";
+    private String saveSPIsNull = "isHistoryNull";
 
     @Override
     protected int getLayoutResID() {
@@ -131,12 +145,50 @@ public class SearchActivity extends BaseActivity {
         tvAddress = findViewById(R.id.tvAddress);
         ivQRCode = findViewById(R.id.ivQRCode);
         mGridView = findViewById(R.id.mGridView);
+        tvBackspace = findViewById(R.id.tv_backspace);
+        tvRemoteSearch = findViewById(R.id.tvRemoteSearch);
         keyboard = findViewById(R.id.keyBoardRoot);
+        tvSearch.setOnFocusChangeListener(focusChangeListener);
+        tvRemoteSearch.setOnFocusChangeListener(focusChangeListener);
+        tvClear.setOnFocusChangeListener(focusChangeListener);
+        tvBackspace.setOnFocusChangeListener(focusChangeListener);
+        tvSearchCheckbox.setOnFocusChangeListener(focusChangeListener);
+
         mGridViewWord = findViewById(R.id.mGridViewWord);
         mGridViewWord.setHasFixedSize(true);
         mGridViewWord.setLayoutManager(new V7LinearLayoutManager(this.mContext, 1, false));
         wordAdapter = new PinyinAdapter();
         mGridViewWord.setAdapter(wordAdapter);
+        //history
+        initDatas();
+        mLabelListView = findViewById(R.id.mGridViewSHistory);
+        mLabelListView.setSize(14);
+        mLabelListView.setData(labelList);
+        mLabelListView.setOnClickListener(new IOnItemClickListener() {
+
+            @Override
+            public void onClick(String name, int position) {
+                etSearch.setText(name);
+                etSearch.setSelection(etSearch.getText().length());
+                search(name);
+                mLabelListView.setData(labelList);
+            }
+        });
+
+        mLabelListView.setOnLongClickListener(new IOnItemLongClickListener() {
+            @Override
+            public void onLongClick(String name, int position) {
+                delHistoryData(position + 1);
+            }
+        });
+        // lite
+        if (Hawk.get(HawkConfig.SEARCH_VIEW, 0) == 0)
+            mGridView.setLayoutManager(new V7LinearLayoutManager(this.mContext, 1, false));
+            // with preview
+        else
+            mGridView.setLayoutManager(new V7GridLayoutManager(this.mContext, 3));
+        searchAdapter = new SearchAdapter();
+        mGridView.setAdapter(searchAdapter);
         // Allow Dpad Key switch to other focus
         etSearch.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -221,17 +273,38 @@ public class SearchActivity extends BaseActivity {
                 etSearch.setText("");
             }
         });
+        tvBackspace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = etSearch.getText().toString().trim();
+                if (text.length() > 0) {
+                    text = text.substring(0, text.length() - 1);
+                    etSearch.setText(text);
+                    etSearch.setSelection(text.length());
+                }
+                if (text.length() > 0) {
+                    loadRec(text);
+                }
+            }
+        });
+        tvRemoteSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RemoteDialog remoteDialog = new RemoteDialog(mContext);
+                remoteDialog.show();
+            }
+        });
         keyboard.setOnSearchKeyListener(new SearchKeyboard.OnSearchKeyListener() {
             @Override
             public void onSearchKey(int pos, String key) {
-                if (pos > 1) {
+                if (pos >= 0) {
                     String text = etSearch.getText().toString().trim();
                     text += key;
                     etSearch.setText(text);
                     if (text.length() > 0) {
                         loadRec(text);
                     }
-                } else if (pos == 1) {
+                } /*else if (pos == 1) {
                     String text = etSearch.getText().toString().trim();
                     if (text.length() > 0) {
                         text = text.substring(0, text.length() - 1);
@@ -243,7 +316,7 @@ public class SearchActivity extends BaseActivity {
                 } else if (pos == 0) {
                     RemoteDialog remoteDialog = new RemoteDialog(mContext);
                     remoteDialog.show();
-                }
+                }*/
             }
         });
         tvSearchCheckbox.setOnClickListener(new View.OnClickListener() {
@@ -274,6 +347,74 @@ public class SearchActivity extends BaseActivity {
     private void initViewModel() {
         sourceViewModel = new ViewModelProvider(this).get(SourceViewModel.class);
     }
+
+    private void initDatas() {
+
+
+        if (SharedPreferencesUtil.readByBool(this,saveSP,saveSPIsNull,true)){
+            //初始化数量
+            GameLabel label = new GameLabel();
+            label.name = "0";
+            label.textColor = "FFFFFF";
+            labelList.add(0,label);
+            SharedPreferencesUtil.SaveStr(this,saveSP,"history",labelList);
+            SharedPreferencesUtil.SaveBool(this,saveSP,saveSPIsNull,false);
+        }else {
+            labelList = SharedPreferencesUtil.readByStr(this,saveSP,"history");
+            if (labelList.size()==0){
+                //初始化数量
+                GameLabel label = new GameLabel();
+                label.name = "0";
+                label.textColor = "FFFFFF";
+                labelList.add(0,label);
+                SharedPreferencesUtil.SaveStr(this,saveSP,"history",labelList);
+            }
+        }
+
+
+    }
+
+    private void addHistoryData(String name){
+        GameLabel label = new GameLabel();
+        label.name = name;
+        label.textColor = "FFFFFF";
+        //历史记录最大值
+
+        if (labelList.size() > (int)Hawk.get(HawkConfig.HOME_NUM,20)){
+            delHistoryData(labelList.size() - 1);
+        }
+        if (labelList.size()!=0){
+            for (int i = 1;i < labelList.size();i++){
+                if (labelList.get(i).name.contains(name)){
+                    delHistoryData(i);
+                    labelList.add(1,label);
+                    SharedPreferencesUtil.SaveStr(this,saveSP,"history",labelList);
+                    return;
+                }
+            }
+        }
+
+        labelList.add(1,label);
+        //Hawk.put(HawkConfig.SEARCH_HISTORY,labelList);
+        SharedPreferencesUtil.SaveStr(this,saveSP,"history",labelList);
+        mLabelListView.setData(labelList);
+    }
+
+    private void delHistoryData(int item){
+        labelList.remove(item);
+        SharedPreferencesUtil.SaveStr(this,saveSP,"history",labelList);
+        mLabelListView.setData(labelList);
+    }
+
+    private final View.OnFocusChangeListener focusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus)
+                v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
+            else
+                v.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).setInterpolator(new BounceInterpolator()).start();
+        }
+    };
 
     /**
      * 拼音联想
@@ -411,6 +552,7 @@ public class SearchActivity extends BaseActivity {
         mGridView.setVisibility(View.INVISIBLE);
         searchAdapter.setNewData(new ArrayList<>());
         searchResult();
+        addHistoryData(title);
     }
 
     private ExecutorService searchExecutorService = null;

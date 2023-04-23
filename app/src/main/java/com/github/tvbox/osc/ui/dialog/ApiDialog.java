@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.github.tvbox.osc.R;
+import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.event.RefreshEvent;
 import com.github.tvbox.osc.server.ControlManager;
 import com.github.tvbox.osc.ui.activity.HomeActivity;
@@ -91,6 +92,13 @@ public class ApiDialog extends BaseDialog {
                     if (history.size() > 20)
                         history.remove(20);
                     Hawk.put(HawkConfig.API_HISTORY, history);
+
+                    ArrayList<String> Thhistory = Hawk.get(HawkConfig.THEME_WALLPAPER_URL_HISTORY, new ArrayList<String>());
+                    if (!Thhistory.contains(ApiConfig.get().wallpaper))
+                        Thhistory.add(0, ApiConfig.get().wallpaper);
+                    if (Thhistory.size() > 20)
+                        Thhistory.remove(20);
+                    Hawk.put(HawkConfig.THEME_WALLPAPER_URL_HISTORY, Thhistory);
                     listener.onchange(newApi);
                     dismiss();
                 }

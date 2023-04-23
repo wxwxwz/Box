@@ -48,6 +48,10 @@ public class HawkConfig {
     public static final String SUBTITLE_TEXT_SIZE = "subtitle_text_size";
     public static final String SUBTITLE_TIME_DELAY = "subtitle_time_delay";
     public static final String THEME_SELECT = "theme_select";
+    public static final String THEME_WALLPAPER = "theme_wallpaper";
+    public static final String THEME_WALLPAPER_URL = "theme_wallpaper_url";
+
+    public static final String THEME_WALLPAPER_URL_HISTORY = "theme_wallpaper_url_history";
 
     // Live Settings
     public static final String LIVE_CHANNEL = "last_live_channel_name";

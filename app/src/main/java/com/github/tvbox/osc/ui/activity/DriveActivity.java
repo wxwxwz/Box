@@ -1,11 +1,15 @@
 package com.github.tvbox.osc.ui.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -36,6 +40,15 @@ import com.github.tvbox.osc.viewmodel.drive.AbstractDriveViewModel;
 import com.github.tvbox.osc.viewmodel.drive.AlistDriveViewModel;
 import com.github.tvbox.osc.viewmodel.drive.LocalDriveViewModel;
 import com.github.tvbox.osc.viewmodel.drive.WebDAVDriveViewModel;
+import com.github.tvbox.osc.wxwz.ui.dialog.DownloadDialog;
+import com.github.tvbox.osc.wxwz.ui.dialog.MusicDialog;
+import com.github.tvbox.osc.wxwz.ui.dialog.SelectMoreDialog;
+import com.github.tvbox.osc.wxwz.util.ApkUtils;
+import com.github.tvbox.osc.wxwz.util.DownloadDriveUtils;
+import com.github.tvbox.osc.wxwz.util.DownloadSelect;
+import com.github.tvbox.osc.wxwz.util.FileUtils;
+import com.github.tvbox.osc.wxwz.util.okhttp.WebDav;
+import com.github.tvbox.osc.wxwz.util.okhttp.entity.DownloadInfo;
 import com.github.tvbox.quickjs.JSUtils;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -53,6 +66,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,8 +96,11 @@ public class DriveActivity extends BaseActivity {
     private boolean isInSearch = false;
 
     private boolean delMode = false;
+    public static int filePostion = 0;
+    public static List<DriveFolderFile> driveFolderFileList = new ArrayList<>();
 
     private Handler mHandler = new Handler();
+    private DriveFolderFile selectedItemPath;
 
     @Override
     protected int getLayoutResID() {
@@ -189,6 +208,7 @@ public class DriveActivity extends BaseActivity {
 
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+                filePostion = position;
                 if (delMode) {
                     DriveFolderFile selectedDrive = drives.get(position);
                     RoomDataManger.deleteDrive(selectedDrive.getDriveData().getId());
@@ -221,6 +241,7 @@ public class DriveActivity extends BaseActivity {
                 if (!selectedItem.isFile) {
                     viewModel.setCurrentDriveNote(selectedItem);
                     loadDriveData();
+                    selectedItemPath = selectedItem;
                 } else {
                     // takagen99 - To only play media file
                     if (StorageDriveType.isVideoType(selectedItem.fileType)) {
@@ -258,8 +279,10 @@ public class DriveActivity extends BaseActivity {
                             });
                         }
                     } else {
-                        Toast.makeText(DriveActivity.this, "Media Unsupported", Toast.LENGTH_SHORT).show();
+                        DownloadDriveUtils.downloadSelect(DriveActivity.this,viewModel,selectedItem);
+
                     }
+
                 }
             }
         });
@@ -458,6 +481,7 @@ public class DriveActivity extends BaseActivity {
                                 }
                             }, 50);
                         }
+                        driveFolderFileList = viewModel.getCurrentDriveNote().getChildren();
                     }
                 });
             }
@@ -519,7 +543,16 @@ public class DriveActivity extends BaseActivity {
     public void onBackPressed() {
         if (viewModel != null) {
             cancel();
-            mGridView.onClick(mGridView.getChildAt(0));
+            if (mGridView.getSelectedPosition()!=0){
+                mGridView.scrollToPosition(0);
+                mGridView.setSelectionWithSmooth(0);
+            }else {
+                mGridView.onClick(mGridView.getChildAt(0));
+            }
+
+            //
+
+            //mGridView.onClick(mGridView.getChildAt(0));
             return;
         }
         if (!delMode)
@@ -528,11 +561,16 @@ public class DriveActivity extends BaseActivity {
             toggleDelMode();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refresh(RefreshEvent event) {
         if (event.type == RefreshEvent.TYPE_DRIVE_REFRESH) {
             drives = null;
             initData();
+        }else if (event.type == RefreshEvent.TYPE_FILE_CHANGE){
+            adapter.notifyDataSetChanged();
+            driveFolderFileList.remove(filePostion);
+
         }
     }
 

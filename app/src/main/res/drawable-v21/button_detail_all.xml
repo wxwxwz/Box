@@ -29,8 +29,8 @@
                 android:state_focused="false"
                 android:state_pressed="false">
                 <shape>
-                    <corners android:radius="@dimen/vs_20" />
-                    <solid android:color="@color/color_3D3D3D_50" />
+                    <solid android:color="@color/white_10" />
+                    <corners android:radius="@dimen/tv_dialog_bottom_radius" />
                 </shape>
             </item>
         </selector>

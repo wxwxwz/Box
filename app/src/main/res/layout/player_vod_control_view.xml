@@ -125,7 +125,7 @@
                     android:layout_marginEnd="@dimen/vs_10"
                     android:layout_marginRight="@dimen/vs_10"
                     android:indeterminateBehavior="repeat"
-                    android:indeterminateDrawable="@drawable/dkplayer_progress_loading"
+                    style="@style/progressbarCircleLight"
                     android:indeterminateOnly="true"
                     android:tag="vod_control_loading" />
             </LinearLayout>
@@ -273,7 +273,7 @@
                     android:layout_marginEnd="@dimen/vs_10"
                     android:layout_marginRight="@dimen/vs_10"
                     android:indeterminateBehavior="repeat"
-                    android:indeterminateDrawable="@drawable/dkplayer_progress_loading"
+                    style="@style/progressbarCircleLight"
                     android:indeterminateOnly="true"
                     android:tag="vod_control_loading_hide" />
             </LinearLayout>

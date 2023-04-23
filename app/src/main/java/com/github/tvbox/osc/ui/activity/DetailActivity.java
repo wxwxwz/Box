@@ -131,7 +131,7 @@ public class DetailActivity extends BaseActivity {
     private static final int PIP_BOARDCAST_ACTION_PLAYPAUSE = 1;
     private static final int PIP_BOARDCAST_ACTION_NEXT = 2;
 
-    private ImageView tvPlayUrl;
+    private TextView tvPlayUrl;
 
     @Override
     protected int getLayoutResID() {
