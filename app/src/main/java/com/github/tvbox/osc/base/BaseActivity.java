@@ -73,22 +73,8 @@ public abstract class BaseActivity extends AppCompatActivity implements CustomAd
             th.printStackTrace();
         }
 
-        // takagen99 : Set Theme Color
-        if (Hawk.get(HawkConfig.THEME_SELECT, 0) == 0) {
-            setTheme(R.style.NetfxTheme);
-        } else if (Hawk.get(HawkConfig.THEME_SELECT, 0) == 1) {
-            setTheme(R.style.DoraeTheme);
-        } else if (Hawk.get(HawkConfig.THEME_SELECT, 0) == 2) {
-            setTheme(R.style.PepsiTheme);
-        } else if (Hawk.get(HawkConfig.THEME_SELECT, 0) == 3) {
-            setTheme(R.style.NarutoTheme);
-        } else if (Hawk.get(HawkConfig.THEME_SELECT, 0) == 4) {
-            setTheme(R.style.MinionTheme);
-        } else if (Hawk.get(HawkConfig.THEME_SELECT, 0) == 5) {
-            setTheme(R.style.YagamiTheme);
-        } else {
-            setTheme(R.style.SakuraTheme);
-        }
+        //Set Theme Color
+        setThemeColor(Hawk.get(HawkConfig.THEME_SELECT, 0));
 
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResID());
@@ -97,6 +83,44 @@ public abstract class BaseActivity extends AppCompatActivity implements CustomAd
         AppManager.getInstance().addActivity(this);
         init();
         setScreenOn();
+    }
+
+    public void setThemeColor(int color){
+        switch (color){
+            case 0:
+                setTheme(R.style.AppThemeBlue);
+                break;
+            case 1:
+                setTheme(R.style.MyThemeRed);
+                break;
+            case 2:
+                setTheme(R.style.MyThemeOrange);
+                break;
+            case 3:
+                setTheme(R.style.MyThemeYellow);
+                break;
+            case 4:
+                setTheme(R.style.MyThemeGreen);
+                break;
+            case 5:
+                setTheme(R.style.MyThemeTeel);
+                break;
+            case 6:
+                setTheme(R.style.SakuraTheme);
+                break;
+            case 7:
+                setTheme(R.style.MyThemeCyan);
+                break;
+            case 8:
+                setTheme(R.style.MyThemePurple);
+                break;
+            case 9:
+                setTheme(R.style.MyThemePink);
+                break;
+            default:
+                setTheme(R.style.MyThemeBrown);
+                break;
+        }
     }
 
     @Override

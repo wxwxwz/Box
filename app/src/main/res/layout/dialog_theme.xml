@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/shape_dialog_bg_main"
+    android:layout_gravity="center"
+    android:padding="@dimen/vs_30"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/theme_title"
+        android:layout_width="@dimen/vs_600"
+        android:layout_height="wrap_content"
+        android:text="主题"
+        android:textSize="@dimen/vs_30"
+        android:textColor="@color/media_center_dialog_title"
+        android:gravity="left|center"
+        android:layout_marginBottom="@dimen/vs_10"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="主题颜色"
+        android:textColor="@color/media_center_dialog_content"
+        android:textSize="@dimen/vs_20"
+        android:layout_marginVertical="@dimen/vs_5"
+        />
+
+    <com.owen.tvrecyclerview.widget.TvRecyclerView
+        android:id="@+id/theme_color"
+        android:layout_width="@dimen/vs_600"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:tv_horizontalSpacingWithMargins="@dimen/vs_10"
+        app:tv_layoutManager="V7LinearLayoutManager"
+        app:tv_selectedItemIsCentered="true"
+        app:tv_verticalSpacingWithMargins="@dimen/vs_10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="壁纸"
+        android:textColor="@color/media_center_dialog_content"
+        android:textSize="@dimen/vs_20"
+        android:layout_marginVertical="@dimen/vs_5"
+        />
+
+    <com.owen.tvrecyclerview.widget.TvRecyclerView
+        android:id="@+id/theme_wallpaper"
+        android:layout_width="@dimen/vs_600"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:tv_horizontalSpacingWithMargins="@dimen/vs_10"
+        app:tv_layoutManager="V7LinearLayoutManager"
+        app:tv_selectedItemIsCentered="true"
+        android:layout_marginBottom="@dimen/vs_5"
+        app:tv_verticalSpacingWithMargins="@dimen/vs_10" />
+
+    <LinearLayout
+        android:layout_width="@dimen/vs_600"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <EditText
+            android:id="@+id/theme_input"
+            android:layout_width="@dimen/vs_480"
+            android:layout_height="wrap_content"
+            android:hint="壁纸地址（可以是网址和本地资源）"
+            android:background="@drawable/input_dialog_api_input"
+            android:maxLines="1"
+            android:textSize="@dimen/vs_20"
+            android:textColorHint="@color/media_center_dialog_detail"
+            />
+
+        <LinearLayout
+            android:id="@+id/theme_open"
+            android:layout_width="@dimen/vs_60"
+            android:layout_height="@dimen/vs_60"
+            android:gravity="center"
+            android:focusable="true"
+            android:background="@drawable/theme_color_shape"
+            >
+            <ImageView
+                android:layout_width="@dimen/vs_50"
+                android:layout_height="@dimen/vs_50"
+                android:padding="@dimen/vs_10"
+                android:src="@drawable/ic_open_in_new"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/theme_history"
+            android:layout_width="@dimen/vs_60"
+            android:layout_height="@dimen/vs_60"
+            android:gravity="center"
+            android:focusable="true"
+            android:background="@drawable/theme_color_shape"
+            >
+            <ImageView
+                android:layout_width="@dimen/vs_50"
+                android:layout_height="@dimen/vs_50"
+                android:padding="@dimen/vs_10"
+                android:src="@drawable/hm_history"
+                />
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/vs_5"
+        android:layout_marginTop="@dimen/vs_15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/leftBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/vs_10"
+            android:background="@drawable/rectangle_dialog_button_selector"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/vs_25"
+            android:paddingRight="@dimen/vs_25"
+            android:paddingTop="@dimen/vs_10"
+            android:paddingBottom="@dimen/vs_10"
+            android:text="保存"
+            android:textColor="@color/color_FFFFFF"
+            android:textSize="@dimen/ts_22" />
+
+        <TextView
+            android:id="@+id/rightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/vs_10"
+
+            android:background="@drawable/rectangle_dialog_button_selector"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/vs_25"
+            android:paddingRight="@dimen/vs_25"
+            android:paddingTop="@dimen/vs_10"
+            android:paddingBottom="@dimen/vs_10"
+            android:text="取消"
+            android:textColor="@color/color_FFFFFF"
+            android:textSize="@dimen/ts_22" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector android:color="?attr/color_theme"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="?attr/color_theme_40" />
+            <corners android:radius="@dimen/tv_dialog_bottom_radius" />
+        </shape>
+    </item>
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="?attr/color_theme_40" />
+            <corners android:radius="@dimen/tv_dialog_bottom_radius" />
+        </shape>
+    </item>
+    <item android:state_focused="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white_10" />
+            <corners android:radius="@dimen/tv_dialog_bottom_radius" />
+        </shape>
+    </item>
+    <item android:state_selected="false">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white_10" />
+            <corners android:radius="@dimen/tv_dialog_bottom_radius" />
+        </shape>
+    </item>
+</selector>

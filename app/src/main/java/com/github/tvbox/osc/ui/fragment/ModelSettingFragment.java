@@ -772,6 +772,8 @@ public class ModelSettingFragment extends BaseLazyFragment {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         colorPos = position;
+                        Theme theme = themeColorAdapter.getData().get(position);
+                        themeColorAdapter.setData(position,new Theme(theme.getColorId(),theme.getColorName(),theme.getColor()));
                     }
                 });
                 themeWallpaperAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
