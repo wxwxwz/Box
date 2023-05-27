@@ -356,14 +356,21 @@ public class MusicDialog extends BaseDialog {
 
                 if (pic != null) {
                     songalbum = BitmapFactory.decodeByteArray(pic, 0, pic.length);
-                    mmr.release();
+                    //mmr.release();
                 } else {
                     songalbum = BitmapFactory.decodeResource(context.getResources(), R.drawable.music_default_album);
                 }
                 error = false;
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
+            }finally {
+                try {
+                    mmr.release();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
         }
 
         mMusicName.setText(title);
