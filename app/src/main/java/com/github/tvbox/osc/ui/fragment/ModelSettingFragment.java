@@ -426,6 +426,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 players.add(0);
                 players.add(1);
                 players.add(2);
+                players.add(3);
                 players.add(10);
                 players.add(11);
                 players.add(12);
