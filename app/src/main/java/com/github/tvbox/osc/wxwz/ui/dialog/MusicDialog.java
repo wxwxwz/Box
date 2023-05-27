@@ -356,7 +356,6 @@ public class MusicDialog extends BaseDialog {
 
                 if (pic != null) {
                     songalbum = BitmapFactory.decodeByteArray(pic, 0, pic.length);
-                    //mmr.release();
                 } else {
                     songalbum = BitmapFactory.decodeResource(context.getResources(), R.drawable.music_default_album);
                 }
