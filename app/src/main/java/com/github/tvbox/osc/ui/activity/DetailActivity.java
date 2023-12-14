@@ -131,7 +131,7 @@ public class DetailActivity extends BaseActivity {
     public static final int BROADCAST_ACTION_PLAYPAUSE = 1;
     public static final int BROADCAST_ACTION_NEXT = 2;
 
-    private ImageView tvPlayUrl;    
+    private TextView tvPlayUrl;
     /**
      * Home键广播,用于触发后台服务
      */
