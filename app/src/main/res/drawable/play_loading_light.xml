@@ -1,0 +1,12 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <rotate
+            android:drawable="@drawable/yl_spinner_76_holo_light"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:repeatCount="-1"
+            android:fromDegrees="0"
+            android:duration="100"
+            android:toDegrees="360"/>
+    </item>
+</layer-list>

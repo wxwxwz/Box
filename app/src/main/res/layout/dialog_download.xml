@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/shape_dialog_bg_main"
+    android:layout_gravity="center"
+    android:padding="@dimen/vs_30"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/download_title"
+        android:layout_width="@dimen/vs_600"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:textSize="@dimen/vs_30"
+        android:textColor="@color/media_center_dialog_title"
+        android:gravity="left|center"
+        />
+
+    <TextView
+        android:id="@+id/download_info"
+        android:layout_width="@dimen/vs_600"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/vs_20"
+        android:gravity="left|center"
+        android:text="介绍"
+        android:textColor="@color/media_center_dialog_content"
+        android:textSize="@dimen/vs_25"
+        />
+
+    <LinearLayout
+        android:layout_width="@dimen/vs_600"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ProgressBar
+            android:id="@+id/download_progress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:layout_marginVertical="@dimen/vs_10"
+            style="@style/mProgress_horizontal"
+            />
+
+        <TextView
+            android:id="@+id/download_percent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="0%"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/media_center_dialog_detail"
+            android:layout_marginLeft="@dimen/vs_5"
+            android:textSize="@dimen/vs_25"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/download_result"
+        android:layout_width="@dimen/vs_600"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/vs_10"
+        android:text="已完成下载"
+        android:textSize="@dimen/vs_20"
+        android:textColor="@color/media_center_dialog_detail"
+        android:gravity="left|center"
+
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/leftBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/vs_10"
+            android:background="@drawable/rectangle_dialog_button_selector"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/vs_25"
+            android:paddingRight="@dimen/vs_25"
+            android:paddingTop="@dimen/vs_10"
+            android:paddingBottom="@dimen/vs_10"
+            android:text="打开文件"
+            android:textColor="@color/color_FFFFFF"
+            android:textSize="@dimen/ts_22" />
+
+        <TextView
+            android:id="@+id/rightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="@dimen/vs_10"
+
+            android:background="@drawable/rectangle_dialog_button_selector"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingLeft="@dimen/vs_25"
+            android:paddingRight="@dimen/vs_25"
+            android:paddingTop="@dimen/vs_10"
+            android:paddingBottom="@dimen/vs_10"
+            android:text="取消"
+            android:textColor="@color/color_FFFFFF"
+            android:textSize="@dimen/ts_22" />
+    </LinearLayout>
+
+</LinearLayout>

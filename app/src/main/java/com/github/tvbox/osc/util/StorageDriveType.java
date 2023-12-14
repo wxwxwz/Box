@@ -9,13 +9,17 @@ public class StorageDriveType {
         WEBDAV,
         ALISTWEB,
         //SMB
+        SMB,
+        FTP,
     }
 
     public static String[] getTypeNames() {
         return new String[] {
                 "本地目录",
                 "Webdav",
-                "Alist网页"
+                "Alist网页",
+                "SMB",
+                "FTP"
                 //"服务器消息块"
         };
     }
@@ -26,6 +30,49 @@ public class StorageDriveType {
         type = type.toUpperCase(Locale.ROOT).trim();
         for (String videoType : videoTypes) {
             if(videoType.equals(type))
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isMusicType(String type) {
+        if(type == null || type.length() == 0)
+            return false;
+        type = type.toUpperCase(Locale.ROOT).trim();
+        for (String musicType : musicTypes) {
+            if(musicType.equals(type))
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isImageType(String type) {
+        if(type == null || type.length() == 0)
+            return false;
+        type = type.toUpperCase(Locale.ROOT).trim();
+        for (String imageType : imageTypes) {
+            if(imageType.equals(type))
+                return true;
+        }
+        return false;
+    }
+    public static boolean isTextType(String type) {
+        if(type == null || type.length() == 0)
+            return false;
+        type = type.toUpperCase(Locale.ROOT).trim();
+        for (String textType : textTypes) {
+            if(textType.equals(type))
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isOtherType(String type) {
+        if(type == null || type.length() == 0)
+            return false;
+        type = type.toUpperCase(Locale.ROOT).trim();
+        for (String otherTypes : otherTypes) {
+            if(otherTypes.equals(type))
                 return true;
         }
         return false;
@@ -580,5 +627,51 @@ public class StorageDriveType {
             "ZM3",
             "ZMV",
             "ZOOM"
+    };
+
+    private static final String[] musicTypes = new String[] {
+            "flac",
+            "FLAC",
+            "mp3",
+            "MP3",
+            "ape",
+            "APE",
+            "WAV",
+            "wav",
+            "WMA",
+            "wma"
+    };
+
+    private static final String[] otherTypes = new String[] {
+            "srt",
+            "SRT",
+            "ass",
+            "ASS",
+            "rar",
+            "RAR",
+            "zip",
+            "ZIP",
+            "apk",
+            "APK"
+    };
+
+    private static final String[] imageTypes = new String[] {
+            "png",
+            "PNG",
+            "jpg",
+            "JPG",
+            "jpeg",
+            "JPEG",
+            "bmp",
+            "BMP"
+    };
+
+    private static final String[] textTypes = new String[]{
+            "txt",
+            "TXT",
+            "LRC",
+            "lrc",
+            "md",
+            "MD"
     };
 }

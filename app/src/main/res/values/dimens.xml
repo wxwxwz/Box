@@ -69,4 +69,18 @@
     <dimen name="vs_600">600mm</dimen>
     <dimen name="vs_720">720mm</dimen>
     <dimen name="vs_960">960mm</dimen>
+
+    <!--new update -->
+    <dimen name="movie_recommend_item_radius">0.0dip</dimen>
+    <dimen name="movie_recommend_item_frame_width">1.0dip</dimen>
+    <dimen name="tv_dialog_bottom_height">50.0dip</dimen>
+    <dimen name="tv_dialog_bottom_radius">25.0dip</dimen>
+    <dimen name="movie_index_item_height">40.0dip</dimen>
+    <dimen name="movie_index_item_radius">20.0dip</dimen>
+    <dimen name="dp_1">1.0dip</dimen>
+    <dimen name="vs_22.5">22.5mm</dimen>
+    <dimen name="vs_18">18mm</dimen>
+    <dimen name="vs_32">32mm</dimen>
+    <dimen name="vs_64">64mm</dimen>
+    <dimen name="vs_36">36mm</dimen>
 </resources>

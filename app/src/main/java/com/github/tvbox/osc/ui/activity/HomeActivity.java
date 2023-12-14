@@ -111,7 +111,7 @@ public class HomeActivity extends BaseActivity {
         public void run() {
             Date date = new Date();
             @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat timeFormat = new SimpleDateFormat(getString(R.string.hm_date1) + ", " + getString(R.string.hm_date2));
+            SimpleDateFormat timeFormat = new SimpleDateFormat( getString(R.string.hm_date2));
             tvDate.setText(timeFormat.format(date));
             mHandler.postDelayed(this, 1000);
         }
@@ -624,9 +624,9 @@ public class HomeActivity extends BaseActivity {
             tvFind.setVisibility(View.GONE);
         }
         if (Hawk.get(HawkConfig.HOME_MENU_POSITION, true)) {
-            tvMenu.setVisibility(View.VISIBLE);
+            tvDraw.setVisibility(View.VISIBLE);
         } else {
-            tvMenu.setVisibility(View.GONE);
+            tvDraw.setVisibility(View.GONE);
         }
         mHandler.post(mRunnable);
     }

@@ -2,7 +2,10 @@ package com.github.tvbox.osc.ui.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
 import com.github.tvbox.osc.base.BaseActivity;
@@ -33,6 +37,13 @@ import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.HistoryHelper;
 import com.github.tvbox.osc.util.OkGoHelper;
 import com.github.tvbox.osc.util.PlayerHelper;
+import com.github.tvbox.osc.wxwz.entity.Theme;
+import com.github.tvbox.osc.wxwz.entity.Wallpaper;
+import com.github.tvbox.osc.wxwz.ui.adapter.ThemeColorAdapter;
+import com.github.tvbox.osc.wxwz.ui.adapter.ThemeWallpaperAdapter;
+import com.github.tvbox.osc.wxwz.ui.dialog.HomeIconDialogWxwz;
+import com.github.tvbox.osc.wxwz.ui.dialog.ThemeDialog;
+import com.github.tvbox.osc.wxwz.util.FileUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.Progress;
@@ -82,6 +93,11 @@ public class ModelSettingFragment extends BaseLazyFragment {
     private TextView tvParseWebView;
     private TextView tvSearchView;
     private TextView tvDns;
+    private int colorPos = 0;
+    private String wallPaperPos = "";
+    private int wallpaper = 1;
+    private boolean isColorSaveOk = false;
+    private boolean isWallpaperSaveOk = false;
 
     public static ModelSettingFragment newInstance() {
         return new ModelSettingFragment().setArguments();
@@ -267,7 +283,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
             @Override
             public void onClick(View v) {
                 FastClickCheckUtil.check(v);
-                HomeIconDialog dialog = new HomeIconDialog(mActivity);
+                HomeIconDialogWxwz dialog = new HomeIconDialogWxwz(mActivity);
                 dialog.show();
             }
         });
@@ -750,52 +766,85 @@ public class ModelSettingFragment extends BaseLazyFragment {
         // Select App Theme Color -------------------------------------
         findViewById(R.id.llTheme).setOnClickListener(new View.OnClickListener() {
             private final int chkTheme = Hawk.get(HawkConfig.THEME_SELECT, 0);
+            private final String chkWallpaper = Hawk.get(HawkConfig.THEME_WALLPAPER_URL,ApiConfig.get().wallpaper);
+            private final int chkWallapernum = Hawk.get(HawkConfig.THEME_WALLPAPER,1);
 
             @Override
             public void onClick(View v) {
                 FastClickCheckUtil.check(v);
                 int defaultPos = Hawk.get(HawkConfig.THEME_SELECT, 0);
-                ArrayList<Integer> types = new ArrayList<>();
-                types.add(0);
-                types.add(1);
-                types.add(2);
-                types.add(3);
-                types.add(4);
-                types.add(5);
-                types.add(6);
-                SelectDialog<Integer> dialog = new SelectDialog<>(mActivity);
-                dialog.setTip(getString(R.string.dia_theme));
-                dialog.setAdapter(new SelectDialogAdapter.SelectDialogInterface<Integer>() {
-                    @Override
-                    public void click(Integer value, int pos) {
-                        Hawk.put(HawkConfig.THEME_SELECT, value);
-                        tvTheme.setText(getThemeView(value));
-                    }
+                wallPaperPos = Hawk.get(HawkConfig.THEME_WALLPAPER_URL,ApiConfig.get().wallpaper);
+                wallpaper = Hawk.get(HawkConfig.THEME_WALLPAPER,1);
+                ThemeDialog themeDialog = new ThemeDialog(getContext());
+                ThemeColorAdapter themeColorAdapter = new ThemeColorAdapter();
+                ThemeWallpaperAdapter themeWallpaperAdapter = new ThemeWallpaperAdapter();
+                getThemeData(themeColorAdapter);
+                getWallPaperData(themeWallpaperAdapter);
+                colorPos = defaultPos;
 
-                    @Override
-                    public String getDisplay(Integer val) {
-                        return getThemeView(val);
-                    }
-                }, new DiffUtil.ItemCallback<Integer>() {
-                    @Override
-                    public boolean areItemsTheSame(@NonNull @NotNull Integer oldItem, @NonNull @NotNull Integer newItem) {
-                        return oldItem.intValue() == newItem.intValue();
-                    }
 
+
+                themeColorAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
-                    public boolean areContentsTheSame(@NonNull @NotNull Integer oldItem, @NonNull @NotNull Integer newItem) {
-                        return oldItem.intValue() == newItem.intValue();
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        colorPos = position;
+                        Theme theme = themeColorAdapter.getData().get(position);
+                        themeColorAdapter.setData(position,new Theme(theme.getColorId(),theme.getColorName(),theme.getColor()));
                     }
-                }, types, defaultPos);
-                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                });
+                themeWallpaperAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        wallpaper = position;
+
+
+                    }
+                });
+
+
+                themeDialog.setThemeAdapter(themeColorAdapter,colorPos);
+                themeDialog.setThemeWallpaperAdapter(themeWallpaperAdapter,wallpaper);
+                themeDialog.show();
+                themeDialog.setEditText(ApiConfig.get().wallpaper);
+                themeDialog.setOnButtonClickListner(new ThemeDialog.OnListener() {
+                                                        @Override
+                                                        public void left() {
+                                                            isColorSaveOk = true;
+                                                            isWallpaperSaveOk = true;
+                                                            Hawk.put(HawkConfig.THEME_SELECT, colorPos);
+                                                            Hawk.put(HawkConfig.THEME_WALLPAPER_URL, themeDialog.getEditText());
+                                                            Hawk.put(HawkConfig.THEME_WALLPAPER, wallpaper);
+
+                                                            if (wallpaper == 0) {
+
+                                                            } else {
+                                                                File wp = new File(requireActivity().getFilesDir().getAbsolutePath() + "/wp");
+                                                                if (wp.exists())
+                                                                    wp.delete();
+                                                            }
+
+                                                            ((BaseActivity) requireActivity()).changeWallpaper(true);
+
+                                                            themeDialog.dismiss();
+                                                        }
+
+                                                        @Override
+                                                        public void right() {
+                                                            themeDialog.dismiss();
+                                                        }
+                                                    });
+
+                themeDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
-                        if (chkTheme != Hawk.get(HawkConfig.THEME_SELECT, 0)) {
-                            reloadActivity();
+                        if (isColorSaveOk||isWallpaperSaveOk){
+                            if (chkTheme != Hawk.get(HawkConfig.THEME_SELECT, 0)||chkWallpaper.equals(Hawk.get(HawkConfig.THEME_WALLPAPER_URL,ApiConfig.get().wallpaper))||chkWallapernum != Hawk.get(HawkConfig.THEME_WALLPAPER,1)||wallpaper==0) {
+
+                                reloadActivity();
+                            }
                         }
                     }
                 });
-                dialog.show();
             }
         });
         // About App -----------------------------------------------
@@ -824,6 +873,32 @@ public class ModelSettingFragment extends BaseLazyFragment {
             }
         };
 
+    }
+    private void getWallPaperData(ThemeWallpaperAdapter themeWallpaperAdapter) {
+        if (ApiConfig.get().wallpaper.startsWith("http")){
+            themeWallpaperAdapter.addData(new Wallpaper("当前壁纸",R.drawable.app_bg,1));
+        }else if (ApiConfig.get().wallpaper.startsWith("/storage/")){
+            themeWallpaperAdapter.addData(new Wallpaper("自选壁纸",new File(ApiConfig.get().wallpaper),2));
+        }
+
+        themeWallpaperAdapter.addData(new Wallpaper("壁纸1",R.drawable.app_bg,1));
+        themeWallpaperAdapter.addData(new Wallpaper("壁纸2",R.drawable.app_bg2,1));
+        themeWallpaperAdapter.addData(new Wallpaper("壁纸3",R.drawable.app_bg3,1));
+
+
+    }
+
+    private void getThemeData(ThemeColorAdapter adapter) {
+        adapter.addData(new Theme(0,getString(R.string.color_default), Color.parseColor("#02aaf2")));
+        adapter.addData(new Theme(1,getString(R.string.color_red),Color.parseColor("#ff0000")));
+        adapter.addData(new Theme(2,getString(R.string.color_orange),Color.parseColor("#ff4d03")));
+        adapter.addData(new Theme(3,getString(R.string.color_yellow),Color.parseColor("#ffd54f")));
+        adapter.addData(new Theme(4,getString(R.string.color_green),Color.parseColor("#4cae4f")));
+        adapter.addData(new Theme(5,getString(R.string.color_teel),Color.parseColor("#009688")));
+        adapter.addData(new Theme(6,getString(R.string.color_pink_1),Color.parseColor("#FD9BDB")));
+        adapter.addData(new Theme(7,getString(R.string.color_cyan),Color.parseColor("#00BCD4")));
+        adapter.addData(new Theme(8,getString(R.string.color_purple),Color.parseColor("#9d27b0")));
+        adapter.addData(new Theme(9,getString(R.string.color_pink),Color.parseColor("#ff0a89")));
     }
 
     @Override
@@ -860,19 +935,27 @@ public class ModelSettingFragment extends BaseLazyFragment {
 
     String getThemeView(int type) {
         if (type == 0) {
-            return "奈飞";
+            return getString(R.string.color_default);
         } else if (type == 1) {
-            return "哆啦";
+            return getString(R.string.color_red);
         } else if (type == 2) {
-            return "百事";
+            return getString(R.string.color_orange);
         } else if (type == 3) {
-            return "鸣人";
+            return getString(R.string.color_yellow);
         } else if (type == 4) {
-            return "小黄";
+            return getString(R.string.color_green);
         } else if (type == 5) {
-            return "八神";
-        } else {
-            return "樱花";
+            return getString(R.string.color_teel);
+        } else if (type == 6) {
+            return getString(R.string.color_pink_1);
+        }else if (type == 7) {
+            return getString(R.string.color_cyan);
+        }else if (type == 8) {
+            return getString(R.string.color_purple);
+        }else if (type == 9) {
+            return getString(R.string.color_pink);
+        }else {
+            return getString(R.string.color_brown);
         }
     }
 

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyRoot"
     android:layout_width="match_parent"
     android:layout_height="@dimen/vs_50"
     android:layout_gravity="center"
     android:layout_margin="@dimen/vs_4"
-    android:background="@drawable/shape_user_focus"
+    android:background="@drawable/rectangle_movie_category_item_selector"
     android:focusable="true">
 
     <TextView

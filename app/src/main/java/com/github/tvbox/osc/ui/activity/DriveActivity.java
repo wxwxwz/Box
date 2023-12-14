@@ -32,11 +32,21 @@ import com.github.tvbox.osc.ui.dialog.WebdavDialog;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.StorageDriveType;
+import com.github.tvbox.osc.util.StringUtils;
 import com.github.tvbox.osc.viewmodel.drive.AbstractDriveViewModel;
 import com.github.tvbox.osc.viewmodel.drive.AlistDriveViewModel;
 import com.github.tvbox.osc.viewmodel.drive.LocalDriveViewModel;
 import com.github.tvbox.osc.viewmodel.drive.WebDAVDriveViewModel;
-import com.github.tvbox.osc.util.StringUtils;
+import com.github.tvbox.osc.wxwz.ui.dialog.DownloadDialog;
+import com.github.tvbox.osc.wxwz.ui.dialog.MusicDialog;
+import com.github.tvbox.osc.wxwz.ui.dialog.SelectMoreDialog;
+import com.github.tvbox.osc.wxwz.util.ApkUtils;
+import com.github.tvbox.osc.wxwz.util.DownloadDriveUtils;
+import com.github.tvbox.osc.wxwz.util.DownloadSelect;
+import com.github.tvbox.osc.wxwz.util.FileUtils;
+import com.github.tvbox.osc.wxwz.util.okhttp.WebDav;
+import com.github.tvbox.osc.wxwz.util.okhttp.entity.DownloadInfo;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -53,6 +63,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,8 +93,11 @@ public class DriveActivity extends BaseActivity {
     private boolean isInSearch = false;
 
     private boolean delMode = false;
+    public static int filePostion = 0;
+    public static List<DriveFolderFile> driveFolderFileList = new ArrayList<>();
 
     private Handler mHandler = new Handler();
+    private DriveFolderFile selectedItemPath;
 
     @Override
     protected int getLayoutResID() {
@@ -189,6 +205,7 @@ public class DriveActivity extends BaseActivity {
 
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {
+                filePostion = position;
                 if (delMode) {
                     DriveFolderFile selectedDrive = drives.get(position);
                     RoomDataManger.deleteDrive(selectedDrive.getDriveData().getId());
@@ -221,6 +238,7 @@ public class DriveActivity extends BaseActivity {
                 if (!selectedItem.isFile) {
                     viewModel.setCurrentDriveNote(selectedItem);
                     loadDriveData();
+                    selectedItemPath = selectedItem;
                 } else {
                     // takagen99 - To only play media file
                     if (StorageDriveType.isVideoType(selectedItem.fileType)) {
@@ -258,7 +276,8 @@ public class DriveActivity extends BaseActivity {
                             });
                         }
                     } else {
-                        Toast.makeText(DriveActivity.this, "Media Unsupported", Toast.LENGTH_SHORT).show();
+                        DownloadDriveUtils.downloadSelect(DriveActivity.this,viewModel,selectedItem);
+
                     }
                 }
             }
@@ -458,6 +477,7 @@ public class DriveActivity extends BaseActivity {
                                 }
                             }, 50);
                         }
+                        driveFolderFileList = viewModel.getCurrentDriveNote().getChildren();
                     }
                 });
             }

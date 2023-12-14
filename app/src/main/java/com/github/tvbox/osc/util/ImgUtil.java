@@ -33,6 +33,10 @@ public class ImgUtil {
         load(url, view, 10);
     }
 
+    public static void load(int url, ImageView view) {
+        load(url, view, 10);
+    }
+
     public static void load(String url, ImageView view, ImageView.ScaleType scaleType) {
         load(url, view, 10, scaleType);
     }
@@ -81,6 +85,30 @@ public class ImgUtil {
                 .listener(getListener(view, ImageView.ScaleType.FIT_XY))
                 .apply(requestOptions)
                 .into(view);
+        }
+    }
+
+    public static void load(int url, ImageView view, int roundingRadius) {
+        view.setScaleType(ImageView.ScaleType.CENTER);
+        if (url==0) {
+            view.setImageResource(R.drawable.img_loading_placeholder);
+        } else {
+            if (roundingRadius == 0) roundingRadius = 1;
+            RequestOptions requestOptions = new RequestOptions()
+                    .format(DecodeFormat.PREFER_RGB_565)
+                    .diskCacheStrategy(getDiskCacheStrategy(0))
+                    .dontAnimate()
+                    .transform(
+                            new CenterCrop(),
+                            new RoundedCorners(roundingRadius));
+            Glide.with(App.getInstance())
+                    .asBitmap()
+                    .load(url)
+                    .error(R.drawable.img_loading_placeholder)
+                    .placeholder(R.drawable.img_loading_placeholder)
+                    .listener(getListener(view, ImageView.ScaleType.FIT_XY))
+                    .apply(requestOptions)
+                    .into(view);
         }
     }
 

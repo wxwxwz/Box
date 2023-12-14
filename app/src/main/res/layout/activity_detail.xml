@@ -147,20 +147,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:lineSpacingMultiplier="1.1"
+                    android:lineSpacingMultiplier="1.2"
                     android:maxLines="4"
                     android:textColor="@color/color_FFFFFF_80"
-                    android:textSize="@dimen/ts_16" />
+                    android:textSize="@dimen/ts_18" />
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="0mm"
                     android:layout_weight="1" />
 
-                <LinearLayout
+                <HorizontalScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:scrollbars="none"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvPlay"
@@ -225,16 +230,23 @@
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/vs_20" />
 
-                    <ImageView
-                        android:id="@+id/tvPlayUrl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/vs_15"
-                        android:layout_marginLeft="@dimen/vs_15"
-                        android:focusable="false"
-                        app:srcCompat="@drawable/button_detail_link" />
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvPlayUrl"
+                            android:layout_width="@dimen/vs_128"
+                            android:layout_height="@dimen/vs_40"
+                            android:background="@drawable/rectangle_dialog_button_selector"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/vs_15"
+                            android:layout_marginLeft="@dimen/vs_15"
+                            android:gravity="center"
+                            android:focusable="true"
+                            android:text="复制链接"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/vs_20"
+                            />
+                    </LinearLayout>
+
+                </HorizontalScrollView>
             </LinearLayout>
         </LinearLayout>
 

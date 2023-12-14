@@ -49,4 +49,38 @@
     <!-- Unused Subtitle Text -->
     <color name="color_FFB6C1">#FFB6C1</color>
     <color name="color_6CFFFFFF">#6CFFFFFF</color>
+
+    <!-- New Update -->
+    <color name="exo_black_opacity_60">#98000000</color>
+    <color name="exo_black_opacity_70">#b3000000</color>
+    <color name="white_10">#10ffffff</color>
+    <color name="white_20">#20ffffff</color>
+    <color name="white_60">#60ffffff</color>
+    <color name="white_90">#90ffffff</color>
+    <color name="white_bb">#bbffffff</color>
+    <color name="divider_white_background">#fff2f2f2</color>
+    <color name="movie_recommend_select_background_color">#ffebedf9</color>
+    <color name="media_center_bg_start">#457FA8</color>
+    <color name="media_center_bg_center">#2c618e</color>
+    <color name="media_center_bg_end">#134373</color>
+    <color name="media_center_bg_side">#334B79A2</color>
+    <color name="media_center_dialog_title">#07235E</color>
+    <color name="media_center_dialog_content">#DFE6EA</color>
+    <color name="media_center_dialog_detail">#7cbbe3</color>
+    <color name="media_center_dialog_progress">#5590ba</color>
+    <color name="white_10_opacity">#19ffffff</color>
+    <color name="white_15_opacity">#26ffffff</color>
+    <color name="white_20_opacity">#33ffffff</color>
+    <color name="white_25_opacity">#40ffffff</color>
+    <color name="white_30_opacity">#4cffffff</color>
+    <color name="white_3_opacity">#08ffffff</color>
+    <color name="white_50_opacity">#80ffffff</color>
+    <color name="white_5_opacity">#0cffffff</color>
+    <color name="white_60_opacity">#99ffffff</color>
+    <color name="white_65_opacity">#a6ffffff</color>
+    <color name="white_70_opacity">#b6ffffff</color>
+    <color name="white_75_opacity">#bfffffff</color>
+    <color name="white_80_opacity">#ccffffff</color>
+    <color name="white_85_opacity">#d8ffffff</color>
+    <color name="white_90_transparent">#e5ffffff</color>
 </resources>
