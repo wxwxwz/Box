@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.tvbox.osc.wxwz.view.MediaCenterLLButton xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10mm"
     android:layout_marginBottom="10mm"
-    android:background="@drawable/shape_live_focus"
+    android:background="@drawable/selector_media_center_btn"
     android:focusable="true"
     android:focusableInTouchMode="false"
     android:orientation="horizontal">
@@ -24,4 +24,4 @@
         android:textColor="@android:color/white"
         android:textSize="24mm"
         android:textStyle="bold" />
-</LinearLayout>
+</com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>

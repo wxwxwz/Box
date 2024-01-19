@@ -69,9 +69,9 @@ public class SearchKeyboard extends FrameLayout {
         mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(@NonNull View child) {
-                if (child.isFocusable() && null == child.getOnFocusChangeListener()) {
+                /*if (child.isFocusable() && null == child.getOnFocusChangeListener()) {
                     child.setOnFocusChangeListener(focusChangeListener);
-                }
+                }*/
             }
 
             @Override

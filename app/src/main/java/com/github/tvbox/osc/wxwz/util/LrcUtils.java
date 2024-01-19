@@ -130,7 +130,7 @@ public class LrcUtils {
     /**
      * 从文本解析歌词
      */
-    private static List<LrcEntry> parseLrc(String lrcText) {
+    public static List<LrcEntry> parseLrc(String lrcText) {
         if (TextUtils.isEmpty(lrcText)) {
             return null;
         }

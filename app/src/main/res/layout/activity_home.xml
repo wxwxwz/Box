@@ -47,7 +47,7 @@
             android:textSize="@dimen/ts_30"
             android:textStyle="bold" />
 
-        <ImageView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterImageViewButton
             android:id="@+id/tvWifi"
             android:layout_width="@dimen/vs_50"
             android:layout_height="@dimen/vs_50"
@@ -55,14 +55,14 @@
             android:layout_marginLeft="@dimen/vs_15"
             android:layout_marginEnd="@dimen/vs_15"
             android:layout_marginRight="@dimen/vs_15"
-            android:background="@drawable/button_dialog_vod"
+            android:background="@drawable/selector_media_center_btn"
             android:clickable="true"
             android:focusable="true"
             android:nextFocusLeft="@id/tvName"
             android:padding="@dimen/vs_5"
             android:src="@drawable/hm_wifi_no" />
 
-        <ImageView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterImageViewButton
             android:id="@+id/tvFind"
             android:layout_width="@dimen/vs_50"
             android:layout_height="@dimen/vs_50"
@@ -70,13 +70,13 @@
             android:layout_marginLeft="@dimen/vs_15"
             android:layout_marginEnd="@dimen/vs_15"
             android:layout_marginRight="@dimen/vs_15"
-            android:background="@drawable/button_dialog_vod"
+            android:background="@drawable/selector_media_center_btn"
             android:clickable="true"
             android:focusable="true"
             android:padding="@dimen/vs_5"
             android:src="@drawable/hm_search" />
 
-        <ImageView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterImageViewButton
             android:id="@+id/tvStyle"
             android:layout_width="@dimen/vs_50"
             android:layout_height="@dimen/vs_50"
@@ -84,14 +84,14 @@
             android:layout_marginLeft="@dimen/vs_15"
             android:layout_marginEnd="@dimen/vs_15"
             android:layout_marginRight="@dimen/vs_15"
-            android:background="@drawable/button_dialog_vod"
+            android:background="@drawable/selector_media_center_btn"
             android:clickable="true"
             android:focusable="true"
             android:padding="@dimen/vs_10"
             android:visibility="gone"
             android:src="@drawable/hm_left_right" />
 
-        <ImageView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterImageViewButton
             android:id="@+id/tvDrawer"
             android:layout_width="@dimen/vs_50"
             android:layout_height="@dimen/vs_50"
@@ -99,14 +99,14 @@
             android:layout_marginLeft="@dimen/vs_15"
             android:layout_marginEnd="@dimen/vs_15"
             android:layout_marginRight="@dimen/vs_15"
-            android:background="@drawable/button_dialog_vod"
+            android:background="@drawable/selector_media_center_btn"
             android:clickable="true"
             android:focusable="true"
             android:visibility="gone"
             android:padding="@dimen/vs_5"
             android:src="@drawable/hm_drawer" />
 
-        <ImageView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterImageViewButton
             android:id="@+id/tvMenu"
             android:layout_width="@dimen/vs_50"
             android:layout_height="@dimen/vs_50"
@@ -114,7 +114,7 @@
             android:layout_marginLeft="@dimen/vs_15"
             android:layout_marginEnd="@dimen/vs_15"
             android:layout_marginRight="@dimen/vs_15"
-            android:background="@drawable/button_dialog_vod"
+            android:background="@drawable/selector_media_center_btn"
             android:clickable="true"
             android:focusable="true"
             android:nextFocusDown="@id/tvDrive"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.tvbox.osc.wxwz.view.MediaCenterLLButton xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/button_dialog_main"
+    android:background="@drawable/selector_media_center_btn"
     android:focusable="true">
 
     <LinearLayout
@@ -40,4 +40,4 @@
             android:textSize="@dimen/ts_22" />
 
     </LinearLayout>
-</FrameLayout>
+</com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>

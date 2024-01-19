@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -25,19 +27,28 @@ import com.github.tvbox.osc.bean.DriveFolderFile;
 import com.github.tvbox.osc.bean.VodInfo;
 import com.github.tvbox.osc.ui.activity.DriveActivity;
 import com.github.tvbox.osc.ui.dialog.BaseDialog;
+import com.github.tvbox.osc.util.ImgUtil;
 import com.github.tvbox.osc.util.StorageDriveType;
 import com.github.tvbox.osc.viewmodel.drive.AbstractDriveViewModel;
 import com.github.tvbox.osc.wxwz.entity.LrcEntry;
+import com.github.tvbox.osc.wxwz.entity.musicbox.LrcInfo;
+import com.github.tvbox.osc.wxwz.entity.musicbox.MusicBoxInfo;
+import com.github.tvbox.osc.wxwz.network.MusicBoxApi;
 import com.github.tvbox.osc.wxwz.util.DownloadDriveUtils;
 import com.github.tvbox.osc.wxwz.util.LrcUtils;
 import com.github.tvbox.osc.wxwz.util.okhttp.BasicAuthInterceptor;
 import com.github.tvbox.osc.wxwz.util.FileUtils;
 import com.github.tvbox.osc.wxwz.util.okhttp.WebDav;
 import com.github.tvbox.osc.wxwz.util.okhttp.entity.DownloadInfo;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.AbsCallback;
+import com.lzy.okgo.model.Response;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,9 +60,8 @@ import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
-public class MusicDialog extends BaseDialog {
+public class MusicDialog extends BaseDialog implements MediaPlayer.OnBufferingUpdateListener,MediaPlayer.OnPreparedListener,MediaPlayer.OnCompletionListener{
     private ImageView mMusicImage;
     private TextView mMusicName;
     private TextView mMusicSinger;
@@ -90,6 +100,12 @@ public class MusicDialog extends BaseDialog {
     private List<LrcEntry> mainList = new ArrayList<>();
     private int currentLyricIndex = 0;
     private String songUrl = "";
+    public int PLAY_LOCAL = 0;
+    public int PLAY_ONLINE_WYY = 1;
+    public int PLAY_ONLINE_WEBDAV = 2;
+    private int playMode = PLAY_LOCAL;
+    private List<MusicBoxInfo> playListBox = new ArrayList<>();
+
 
     public MusicDialog(@NonNull Context context) {
         super(context);
@@ -200,6 +216,109 @@ public class MusicDialog extends BaseDialog {
         mMusicLrc.setSelected(true);
     }
 
+    public void setPlayMode(int mode){
+        this.playMode = mode;
+    }
+
+    public void setWYYList(List<MusicBoxInfo> list){
+        this.playListBox = list;
+    }
+
+    public void playPos(int pos){
+        if (pos > playListBox.size()){
+            pos = playListBox.size();
+        } else if (pos < 0) {
+            pos = 0;
+        }
+        this.playpos = pos;
+        if (mediaPlayer==null){
+            mediaPlayer = new MediaPlayer();
+        }
+        getSongUrl(playListBox.get(pos));
+    }
+
+    private void getSongUrl(MusicBoxInfo musicBoxInfo) {
+        OkGo.<String>get(MusicBoxApi.getMusicUrl(musicBoxInfo.getRid())).execute(new AbsCallback<String>() {
+            @Override
+            public void onSuccess(Response<String> response) {
+                if (!response.body().isEmpty()){
+                    playSong(response.body());
+                }
+            }
+
+            @Override
+            public String convertResponse(okhttp3.Response response) throws Throwable {
+                String str = "";
+                if (response.body()!=null){
+                    str = response.body().string();
+                }
+
+                return str;
+            }
+        });
+        OkGo.<List<LrcInfo>>get(MusicBoxApi.getMusicLrc(musicBoxInfo.getRid())).execute(new AbsCallback<List<LrcInfo>>() {
+            @Override
+            public void onSuccess(Response<List<LrcInfo>> response) {
+                if (response.isSuccessful()){
+                    if (!response.body().isEmpty()){
+                        mainList.clear();
+                        for (LrcInfo info:response.body()){
+                            mainList.add(new LrcEntry((long) (Double.valueOf(info.getTime()) * 1000),info.getLineLyric()));
+                        }
+                        if (mainList.size()!=0){
+                            isLyric = true;
+                            Log.i("wxwz","获取歌词成功," + mainList.size());
+                        }else {
+                            Log.i("wxwz","获取歌词失败");
+                            isLyric = false;
+                        }
+                    }else {
+                        Log.i("wxwz","获取歌词为null");
+                        isLyric = false;
+                    }
+                }else {
+                    Log.i("wxwz","获取歌词出错");
+                    isLyric = false;
+                }
+            }
+
+            @Override
+            public List<LrcInfo> convertResponse(okhttp3.Response response) throws Throwable {
+                List<LrcInfo> lrcInfoList = new ArrayList<>();
+                if (response.body()!=null){
+                    TypeToken<List<LrcInfo>> typeToken = new TypeToken<List<LrcInfo>>() {};
+                    lrcInfoList = new Gson().fromJson(response.body().string(), typeToken.getType());
+
+                }
+                return lrcInfoList;
+            }
+        });
+    }
+
+    public void playSong(String path){
+        mediaPlayer.reset();
+        mediaPlayer.setLooping(false);
+        Log.i("wxwz","url=" + path);
+        try {
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(path);
+            //[3]准备播放
+            mediaPlayer.prepareAsync(); //异步
+            //[4]设置一个准备完成的一个监听
+        } catch (Exception e) {
+            e.printStackTrace();
+            Message m = Message.obtain();
+            //发送类似请求码,判断是哪个线程
+            m.arg1 = 0;
+            m.obj = "播放出现错误!";
+            h.sendMessage(m);
+
+        }
+        mediaPlayer.setOnPreparedListener(this);
+        mediaPlayer.setOnBufferingUpdateListener(this);
+        mediaPlayer.setOnCompletionListener(this);
+        getSongInfo(getContext(),"");
+    }
     public void playSong(Context context, String songPath, AbstractDriveViewModel viewModel, DriveFolderFile selectedItem) {
 
         songUrl = songPath;
@@ -241,29 +360,33 @@ public class MusicDialog extends BaseDialog {
                         webDav.init(config.get("username").getAsString(), config.get("password").getAsString());
                     }
                     //判断文件是否存在
-                    try {
 
-                        downloadInfo = webDav.getWebDavFile(path);
-                        DownloadInfo lrcinfo = webDav.getWebDavFile(FileUtils.removeExt(path) + ".lrc");
+                    downloadInfo = webDav.getWebDavFile(path);
+                    DownloadInfo lrcinfo = webDav.getWebDavFile(FileUtils.removeExt(path) + ".lrc");
 
-                        Log.e("wxwz","当前文件大小:" + FileUtils.getFileSize(downloadInfo.getFileSize()));
+                    Log.e("wxwz","当前文件大小:" + FileUtils.getFileSize(downloadInfo.getFileSize()));
 
-                        InputStream is = downloadInfo.getFile();
-                        if (lrcinfo.getFileSize()!=0){
-                            //mMusicLrc.setText("正在下载歌词...");
-                            String lrcPath = FileUtils.removeExt(fileName) + ".lrc";
-                            InputStream lrc = lrcinfo.getFile();
-                            downloadFile(lrc,lrcPath);
-                            isLyric = true;
-                            getLrc(new File(lrcPath));
-                        }
+                    InputStream is = downloadInfo.getFile();
+                    if (lrcinfo.getFileSize()!=0){
+                        //mMusicLrc.setText("正在下载歌词...");
+                        String lrcPath = FileUtils.removeExt(fileName) + ".lrc";
+                        InputStream lrc = lrcinfo.getFile();
+                        downloadFile(lrc,lrcPath);
+                        isLyric = true;
+                        getLrc(new File(lrcPath));
+                    }
 
                         songNewPath = download(is);
 
                         if (!songNewPath.equals("")){
                             mediaPlayer.reset();
-                            mediaPlayer.setDataSource(songNewPath);
-                            mediaPlayer.prepare();
+                            try {
+                                mediaPlayer.setDataSource(songNewPath);
+                                mediaPlayer.prepare();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+
                             mediaPlayer.start();
                             Message m = Message.obtain();
                             m.arg1 = 1;
@@ -271,15 +394,6 @@ public class MusicDialog extends BaseDialog {
                             h.sendMessage(m);
                         }
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-
-                        Message m = Message.obtain();
-                        //发送类似请求码,判断是哪个线程
-                        m.arg1 = 0;
-                        m.obj = "播放出现错误!";
-                        h.sendMessage(m);
-                    }
                 }
             };
             thread.start();
@@ -291,15 +405,6 @@ public class MusicDialog extends BaseDialog {
                 //[3]准备播放
                 mediaPlayer.prepareAsync(); //异步
                 //[4]设置一个准备完成的一个监听
-                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    //当这个方法执行说明我们要播放的数据一定缓冲好了
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        //[4]播放音乐
-                        isPrepare = true;
-                        mediaPlayer.start();
-                    }
-                });
             } catch (Exception e) {
                 e.printStackTrace();
                 Message m = Message.obtain();
@@ -329,54 +434,61 @@ public class MusicDialog extends BaseDialog {
     }
 
     public void getSongInfo(Context context, String path) {
-        getLrc(new File(FileUtils.removeExt(path) + ".lrc"));
-        if (path.startsWith("http")) {
-            //title = mediaPlayer.getTrackInfo().toString();
-            title = "正在缓存歌曲....";
-            artist = "";
-            album = "";
-            mMusicLrc.setText("");
-            songalbum = BitmapFactory.decodeResource(context.getResources(), R.drawable.music_default_album);
-            loadFinish = false;
-            mMusicProgress.setProgress(0);
-            mMusicProgress.setSecondaryProgress(0);
-        } else {
-            loadFinish = true;
-            MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-            try {
-                mmr.setDataSource(path);
+        if (playMode==PLAY_ONLINE_WYY){
+            title = playListBox.get(playpos).getName();
+            artist = playListBox.get(playpos).getArtist();
+            album = playListBox.get(playpos).getName();
 
-                title = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-                album = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
-                artist = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-                duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION); // 播放时长单位为毫秒
-                byte[] pic = mmr.getEmbeddedPicture();  // 图片，可以通过BitmapFactory.decodeByteArray转换为bitmap图
-                //Log.d("pic", "path" + pic);
-
-
-                if (pic != null) {
-                    songalbum = BitmapFactory.decodeByteArray(pic, 0, pic.length);
-                } else {
-                    songalbum = BitmapFactory.decodeResource(context.getResources(), R.drawable.music_default_album);
-                }
-                error = false;
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }finally {
+            ImgUtil.load(playListBox.get(playpos).getPic(),mMusicImage,1);
+        } else if (playMode==PLAY_LOCAL) {
+            getLrc(new File(FileUtils.removeExt(path) + ".lrc"));
+            if (path.startsWith("http")) {
+                //title = mediaPlayer.getTrackInfo().toString();
+                title = "正在缓存歌曲....";
+                artist = "";
+                album = "";
+                mMusicLrc.setText("");
+                songalbum = BitmapFactory.decodeResource(context.getResources(), R.drawable.music_default_album);
+                loadFinish = false;
+                mMusicProgress.setProgress(0);
+                mMusicProgress.setSecondaryProgress(0);
+            } else {
+                loadFinish = true;
+                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
                 try {
-                    mmr.release();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+                    mmr.setDataSource(path);
 
+                    title = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+                    album = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+                    artist = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+                    duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION); // 播放时长单位为毫秒
+                    byte[] pic = mmr.getEmbeddedPicture();  // 图片，可以通过BitmapFactory.decodeByteArray转换为bitmap图
+                    //Log.d("pic", "path" + pic);
+
+
+                    if (pic != null) {
+                        songalbum = BitmapFactory.decodeByteArray(pic, 0, pic.length);
+                    } else {
+                        songalbum = BitmapFactory.decodeResource(context.getResources(), R.drawable.music_default_album);
+                    }
+                    error = false;
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                }finally {
+                    try {
+                        mmr.release();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+            mMusicImage.setImageBitmap(songalbum);
         }
 
         mMusicName.setText(title);
         mMusicSinger.setText(artist);
         mMusicAlbumName.setText(album);
-        mMusicImage.setImageBitmap(songalbum);
-
         mPlayPauseImg.setBackgroundResource(mediaPlayer.isPlaying() ? R.drawable.v_pause : R.drawable.v_play);
         mMusicTimeRight.setText(toTime(mediaPlayer.getDuration()));
         if (mMusicProgress != null) {
@@ -395,30 +507,23 @@ public class MusicDialog extends BaseDialog {
         public void run() {
 
             int delay = 250; //not sure why this delay was so high before
-            if (loadFinish){
-                long position = mediaPlayer.getCurrentPosition();
-                if (mMusicProgress != null) {
-                    mMusicProgress.setProgress((int) position);
-                    mMusicTimeLeft.setText(toTime((int) position));
-                    if (isLyric){
-                        if (currentLyricIndex == 0 || position >= mainList.get(currentLyricIndex).getTime()) {
-                            mMusicLrc.setText(mainList.get(currentLyricIndex).getText());
-                            if (currentLyricIndex<mainList.size() -1){
-                                currentLyricIndex++;
-                            }
 
+            long position = mediaPlayer.getCurrentPosition();
+            if (mMusicProgress != null) {
+                mMusicProgress.setProgress((int) position);
+                mMusicTimeLeft.setText(toTime((int) position));
+                if (isLyric){
+                    if (currentLyricIndex == 0 || position >= mainList.get(currentLyricIndex).getTime()) {
+                        mMusicLrc.setText(mainList.get(currentLyricIndex).getText());
+                        if (currentLyricIndex<mainList.size() -1){
+                            currentLyricIndex++;
                         }
-                    }else {
-                        mMusicLrc.setText("无歌词");
+
                     }
-                }
-            }else {
-                if (mMusicProgress != null){
-                    mMusicProgress.setSecondaryProgress(progress);
-                    //Log.e("wxwz","进度:" + progress);
+                }else {
+                    mMusicLrc.setText("无歌词");
                 }
             }
-
 
             mMusicProgress.postDelayed(mUpdateProgress, delay); //delay
 
@@ -449,7 +554,7 @@ public class MusicDialog extends BaseDialog {
                     thread.interrupt();
                 }
 
-                getSongInfo(getContext(), songNewPath);
+                //getSongInfo(getContext(), songNewPath);
             }
 
         }
@@ -542,40 +647,65 @@ public class MusicDialog extends BaseDialog {
     }
 
     public void prev() {
-        if (list.size() != 0) {
-            DriveFolderFile currentDrive = viewModel.getCurrentDrive();
-            if (playpos == 0) {
-                playpos = list.size() - 1;
-            } else {
-                playpos--;
+        if (playMode==PLAY_ONLINE_WYY){
+            if (playListBox.size() != 0) {
+                if (playpos == 0) {
+                    playpos = playListBox.size() - 1;
+                } else {
+                    playpos--;
+                }
+                getSongUrl(playListBox.get(playpos));
             }
-            getSongPath();
-            //判断该文件是否是音频文件
-            if (StorageDriveType.isMusicType(FileUtils.getFileExt(songPath))) {
-                playSong(getContext(), songPath, viewModel, selectedItem);
-            } else {
-                prev();
+        }else {
+            if (list.size() != 0) {
+                DriveFolderFile currentDrive = viewModel.getCurrentDrive();
+                if (playpos == 0) {
+                    playpos = list.size() - 1;
+                } else {
+                    playpos--;
+                }
+                getSongPath();
+                //判断该文件是否是音频文件
+                if (StorageDriveType.isMusicType(FileUtils.getFileExt(songPath))) {
+                    playSong(getContext(), songPath, viewModel, selectedItem);
+                } else {
+                    prev();
+                }
             }
         }
     }
 
+
     public void next() {
-        if (list.size() != 0) {
-            if (list.size() - 1 == playpos) {
-                playpos = 0;
-
-            } else {
-                playpos++;
+        if (playMode==PLAY_ONLINE_WYY){
+            if (playListBox.size() != 0) {
+                if (playListBox.size() - 1 == playpos) {
+                    playpos = 0;
+                } else {
+                    playpos++;
+                }
+                //判断该文件是否是音频文件
+                getSongUrl(playListBox.get(playpos));
             }
-            //判断该文件是否是音频文件
-            getSongPath();
-            if (StorageDriveType.isMusicType(FileUtils.getFileExt(songPath))) {
-                playSong(getContext(), songPath, viewModel, selectedItem);
-            } else {
-                next();
-            }
+        }else {
+            if (list.size() != 0) {
+                if (list.size() - 1 == playpos) {
+                    playpos = 0;
 
+                } else {
+                    playpos++;
+                }
+                //判断该文件是否是音频文件
+                getSongPath();
+                if (StorageDriveType.isMusicType(FileUtils.getFileExt(songPath))) {
+                    playSong(getContext(), songPath, viewModel, selectedItem);
+                } else {
+                    next();
+                }
+
+            }
         }
+
 
     }
 
@@ -633,7 +763,13 @@ public class MusicDialog extends BaseDialog {
         return fileUrl;
     }
 
-
+    /*private void setupMediaPlayerIS(InputStream inputStream){
+        try{
+            mediaPlayer.setDataSource(inputStream.);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }*/
     @Override
     public void dismiss() {
 
@@ -653,4 +789,25 @@ public class MusicDialog extends BaseDialog {
         super.dismiss();
     }
 
+    @Override
+    public void onBufferingUpdate(MediaPlayer mediaPlayer, int i) {
+        mMusicProgress.setSecondaryProgress(mMusicProgress.getMax() * i / 100);
+        Log.i("wxwz","progress=" + i);
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mediaPlayer) {
+        isPrepare = false;
+        mPlayPauseImg.setBackgroundResource(R.drawable.v_play);
+        mMusicTimeLeft.setText("00:00");
+        mMusicProgress.setProgress(0);
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        isPrepare = true;
+        mMusicProgress.setEnabled(true);
+        getSongInfo(getContext(),"");
+        Log.i("wxwz","准备完毕");
+    }
 }

@@ -34,7 +34,7 @@
             android:textStyle="bold"
             tools:text="@string/dia_hm_icon" />
 
-        <LinearLayout
+        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
             android:id="@+id/llSearch"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vs_50"
@@ -44,7 +44,7 @@
             android:layout_marginEnd="@dimen/vs_5"
             android:layout_marginRight="@dimen/vs_5"
             android:layout_weight="1"
-            android:background="@drawable/button_dialog_main"
+            android:background="@drawable/selector_media_center_btn"
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -78,9 +78,9 @@
                 android:text=">"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/ts_24" />
-        </LinearLayout>
+        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
-        <LinearLayout
+        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
             android:id="@+id/llMenu"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vs_50"
@@ -90,7 +90,7 @@
             android:layout_marginEnd="@dimen/vs_5"
             android:layout_marginRight="@dimen/vs_5"
             android:layout_weight="1"
-            android:background="@drawable/button_dialog_main"
+            android:background="@drawable/selector_media_center_btn"
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -124,9 +124,9 @@
                 android:text=">"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/ts_24" />
-        </LinearLayout>
+        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
-        <LinearLayout
+        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
             android:id="@+id/llSearchR"
             android:layout_width="match_parent"
             android:layout_height="@dimen/vs_50"
@@ -136,7 +136,7 @@
             android:layout_marginEnd="@dimen/vs_5"
             android:layout_marginRight="@dimen/vs_5"
             android:layout_weight="1"
-            android:background="@drawable/button_dialog_main"
+            android:background="@drawable/selector_media_center_btn"
             android:focusable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -170,6 +170,6 @@
                 android:text=">"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/ts_24" />
-        </LinearLayout>
+        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
     </LinearLayout>
 </FrameLayout>

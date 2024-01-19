@@ -30,13 +30,13 @@
             android:textSize="@dimen/ts_24"
             tools:text="1111111111111111111111111111111111111111111111111111" />
 
-        <TextView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
             android:id="@+id/pushLocal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/vs_20"
-            android:background="@drawable/shape_user_focus"
+            android:background="@drawable/selector_media_center_btn"
             android:focusable="true"
             android:gravity="center"
             android:padding="@dimen/vs_10"

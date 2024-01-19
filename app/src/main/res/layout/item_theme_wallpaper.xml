@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.tvbox.osc.wxwz.view.MediaCenterLLButton xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="@dimen/vs_90"
     android:layout_height="@dimen/vs_90"
     android:gravity="center"
     android:id="@+id/theme_wallpaper_root"
     android:focusable="true"
-    android:background="@drawable/theme_color_shape"
+    android:background="@drawable/selector_media_center_btn"
     android:padding="@dimen/vs_1"
     android:layout_margin="@dimen/vs_5"
     >
@@ -29,4 +29,4 @@
         android:textColor="@color/white_bb"
         />
 
-</LinearLayout>
+</com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>

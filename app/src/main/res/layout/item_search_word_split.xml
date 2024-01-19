@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tvSearchWord"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/vs_5"
-    android:background="@drawable/button_dialog_main"
+    android:background="@drawable/selector_media_center_btn"
     android:ellipsize="end"
     android:focusable="true"
     android:gravity="center_vertical"

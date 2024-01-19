@@ -6,13 +6,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <TextView
+    <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
         android:id="@+id/tvName"
         android:layout_width="@dimen/vs_0"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@drawable/button_dialog_main"
+        android:background="@drawable/selector_media_center_btn"
         android:clickable="true"
         android:ellipsize="middle"
         android:focusable="true"
@@ -24,13 +24,13 @@
         android:textSize="@dimen/ts_26"
         tools:text="11111111111111" />
 
-    <ImageView
+    <com.github.tvbox.osc.wxwz.view.MediaCenterImageViewButton
         android:id="@+id/tvDel"
         android:layout_width="@dimen/vs_50"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/vs_5"
         android:layout_marginLeft="@dimen/vs_5"
-        android:background="@drawable/button_dialog_main"
+        android:background="@drawable/selector_media_center_btn"
         android:clickable="true"
         android:focusable="true"
         android:padding="@dimen/vs_10"

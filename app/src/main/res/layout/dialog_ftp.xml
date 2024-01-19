@@ -209,14 +209,14 @@
         android:layout_marginTop="@dimen/vs_10"
         android:orientation="horizontal">
 
-        <TextView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
             android:id="@+id/btnConfirm"
             android:layout_width="@dimen/vs_120"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/vs_100"
             android:layout_marginRight="@dimen/vs_100"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/rectangle_dialog_button_selector"
+            android:background="@drawable/selector_media_center_btn"
             android:focusable="true"
             android:gravity="center"
             android:padding="@dimen/vs_10"
@@ -224,12 +224,12 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/vs_20" />
 
-        <TextView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
             android:id="@+id/btnCancel"
             android:layout_width="@dimen/vs_120"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/rectangle_dialog_button_selector"
+            android:background="@drawable/selector_media_center_btn"
             android:focusable="true"
             android:gravity="center"
             android:padding="@dimen/vs_10"

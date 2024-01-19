@@ -41,7 +41,7 @@
             android:paddingRight="@dimen/vs_30"
             app:layout_constraintTop_toBottomOf="@id/title">
 
-            <TextView
+            <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                 android:id="@+id/backupNow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                 android:layout_marginEnd="@dimen/vs_5"
                 android:layout_marginRight="@dimen/vs_5"
                 android:layout_weight="1"
-                android:background="@drawable/rectangle_dialog_button_selector"
+                android:background="@drawable/selector_media_center_btn"
                 android:focusable="true"
                 android:gravity="center"
                 android:padding="@dimen/vs_10"
@@ -57,7 +57,7 @@
                 android:textColor="@color/color_FFFFFF"
                 android:textSize="@dimen/ts_22" />
 
-            <TextView
+            <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                 android:id="@+id/storagePermission"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                 android:layout_marginStart="@dimen/vs_5"
                 android:layout_marginLeft="@dimen/vs_5"
                 android:layout_weight="1"
-                android:background="@drawable/rectangle_dialog_button_selector"
+                android:background="@drawable/selector_media_center_btn"
                 android:focusable="true"
                 android:gravity="center"
                 android:padding="@dimen/vs_10"

@@ -553,6 +553,8 @@ public class DriveActivity extends BaseActivity {
         if (event.type == RefreshEvent.TYPE_DRIVE_REFRESH) {
             drives = null;
             initData();
+        } else if (event.type == RefreshEvent.TYPE_FILE_CHANGE) {
+            loadDriveData();
         }
     }
 

@@ -36,14 +36,14 @@
                 android:textColorHint="@color/color_6CFFFFFF"
                 android:textSize="@dimen/ts_26" />
 
-            <TextView
+            <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                 android:id="@+id/inputSubmit"
                 android:layout_width="@dimen/vs_120"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/vs_20"
                 android:layout_marginLeft="@dimen/vs_20"
-                android:background="@drawable/rectangle_dialog_button_selector"
+                android:background="@drawable/selector_media_center_btn"
                 android:focusable="true"
                 android:gravity="center"
                 android:padding="@dimen/vs_10"

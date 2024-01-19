@@ -29,6 +29,7 @@ import com.github.tvbox.osc.ui.adapter.HomeHotVodAdapter;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
 import com.github.tvbox.osc.util.HawkConfig;
 import com.github.tvbox.osc.util.UA;
+import com.github.tvbox.osc.wxwz.ui.activity.MusicActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -62,6 +63,7 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
     private LinearLayout tvCollect;
     private LinearLayout tvPush;
     private LinearLayout tvApp;
+    private LinearLayout tvMusic;
     private LinearLayout tvUserHome;
     public static HomeHotVodAdapter homeHotVodAdapter;
     private List<Movie.Video> homeSourceRec;
@@ -128,7 +130,12 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
         tvSetting = findViewById(R.id.tvSetting);
         tvCollect = findViewById(R.id.tvFavorite);
         tvHistory = findViewById(R.id.tvHistory);
+        tvHotListForLine = findViewById(R.id.tvHotListForLine);
+        tvHotListForGrid = findViewById(R.id.tvHotListForGrid);
+        tvUserHome = findViewById(R.id.tvUserHome);
+        tvApp = findViewById(R.id.tvApp);
         tvPush = findViewById(R.id.tvPush);
+        tvMusic = findViewById(R.id.tvMusic);
         tvDrive.setOnClickListener(this);
         tvLive.setOnClickListener(this);
         tvSearch.setOnClickListener(this);
@@ -136,19 +143,18 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
         tvHistory.setOnClickListener(this);
         tvPush.setOnClickListener(this);
         tvCollect.setOnClickListener(this);
-        tvDrive.setOnFocusChangeListener(focusChangeListener);
+        /*tvDrive.setOnFocusChangeListener(focusChangeListener);
         tvLive.setOnFocusChangeListener(focusChangeListener);
         tvSearch.setOnFocusChangeListener(focusChangeListener);
         tvSetting.setOnFocusChangeListener(focusChangeListener);
         tvHistory.setOnFocusChangeListener(focusChangeListener);
         tvPush.setOnFocusChangeListener(focusChangeListener);
         tvCollect.setOnFocusChangeListener(focusChangeListener);
-        tvHotListForLine = findViewById(R.id.tvHotListForLine);
-        tvHotListForGrid = findViewById(R.id.tvHotListForGrid);
-        tvUserHome = findViewById(R.id.tvUserHome);
-        tvApp = findViewById(R.id.tvApp);
+        tvApp.setOnFocusChangeListener(focusChangeListener);*/
+
         tvApp.setOnClickListener(this);
-        tvApp.setOnFocusChangeListener(focusChangeListener);
+        tvMusic.setOnClickListener(this);
+
         tvHotListForGrid.setHasFixedSize(true);
         tvHotListForGrid.setLayoutManager(new V7GridLayoutManager(this.mContext, 5));
         homeHotVodAdapter = new HomeHotVodAdapter();
@@ -359,6 +365,8 @@ public class UserFragment extends BaseLazyFragment implements View.OnClickListen
             jumpActivity(DriveActivity.class);
         } else if (v.getId() == R.id.tvApp){
             jumpActivity(AppsActivity.class);
+        } else if (v.getId() == R.id.tvMusic){
+            jumpActivity(MusicActivity.class);
         }
     }
 

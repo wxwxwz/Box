@@ -167,83 +167,82 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                    <TextView
+                    <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                         android:id="@+id/tvPlay"
                         android:layout_width="@dimen/vs_120"
                         android:layout_height="@dimen/vs_40"
                         android:layout_marginEnd="@dimen/vs_10"
                         android:layout_marginRight="@dimen/vs_10"
-                        android:background="@drawable/button_detail_all"
+                        android:background="@drawable/selector_media_center_btn"
                         android:focusable="true"
                         android:gravity="center"
                         android:text="@string/det_play"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/vs_20" />
 
-                    <TextView
+                    <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                         android:id="@+id/tvQuickSearch"
                         android:layout_width="@dimen/vs_120"
                         android:layout_height="@dimen/vs_40"
                         android:layout_marginEnd="@dimen/vs_10"
                         android:layout_marginRight="@dimen/vs_10"
-                        android:background="@drawable/button_detail_all"
+                        android:background="@drawable/selector_media_center_btn"
                         android:focusable="true"
                         android:gravity="center"
                         android:text="@string/det_search"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/vs_20" />
 
-                    <TextView
+                    <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                         android:id="@+id/tvSort"
                         android:layout_width="@dimen/vs_120"
                         android:layout_height="@dimen/vs_40"
                         android:layout_marginEnd="@dimen/vs_10"
                         android:layout_marginRight="@dimen/vs_10"
-                        android:background="@drawable/button_detail_all"
+                        android:background="@drawable/selector_media_center_btn"
                         android:focusable="true"
                         android:gravity="center"
                         android:text="@string/det_sort"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/vs_20" />
 
-                    <TextView
+                    <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                         android:id="@+id/tvPush"
                         android:layout_width="@dimen/vs_120"
                         android:layout_height="@dimen/vs_40"
                         android:layout_marginEnd="@dimen/vs_10"
                         android:layout_marginRight="@dimen/vs_10"
-                        android:background="@drawable/button_detail_all"
+                        android:background="@drawable/selector_media_center_btn"
                         android:focusable="true"
                         android:gravity="center"
                         android:text="@string/det_push"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/vs_20" />
 
-                    <TextView
+                    <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                         android:id="@+id/tvCollect"
                         android:layout_width="@dimen/vs_128"
                         android:layout_height="@dimen/vs_40"
-                        android:background="@drawable/button_detail_all"
+                        android:background="@drawable/selector_media_center_btn"
                         android:focusable="true"
                         android:gravity="center"
                         android:text="@string/det_fav"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/vs_20" />
 
-                        <TextView
-                            android:id="@+id/tvPlayUrl"
-                            android:layout_width="@dimen/vs_128"
-                            android:layout_height="@dimen/vs_40"
-                            android:background="@drawable/rectangle_dialog_button_selector"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/vs_15"
-                            android:layout_marginLeft="@dimen/vs_15"
-                            android:gravity="center"
-                            android:focusable="true"
-                            android:text="复制链接"
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/vs_20"
-                            />
+                    <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
+                        android:id="@+id/tvPlayUrl"
+                        android:layout_width="@dimen/vs_128"
+                        android:layout_height="@dimen/vs_40"
+                        android:background="@drawable/selector_media_center_btn"                            android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/vs_15"
+                        android:layout_marginLeft="@dimen/vs_15"
+                        android:gravity="center"
+                        android:focusable="true"
+                        android:text="复制链接"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/vs_20"
+                        />
                     </LinearLayout>
 
                 </HorizontalScrollView>
@@ -294,9 +293,9 @@
             android:id="@+id/mGridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/vs_50"
+            android:paddingLeft="@dimen/vs_50"
             android:layout_marginTop="@dimen/vs_10"
-            android:layout_marginRight="@dimen/vs_50"
+            android:paddingRight="@dimen/vs_50"
             android:layout_marginBottom="@dimen/vs_30"
             android:clipChildren="false"
             android:clipToPadding="false"

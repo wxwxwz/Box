@@ -27,6 +27,8 @@ public class LrcEntry implements Comparable<LrcEntry> {
     private String text;
     private String secondText;
     private StaticLayout staticLayout;
+
+
     /**
      * 歌词距离视图顶部的距离
      */

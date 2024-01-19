@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.tvbox.osc.wxwz.view.MediaCenterFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rectangle_movie_category_item_selector"
+    android:background="@drawable/selector_media_center_btn"
     android:focusable="true">
 
     <TextView
@@ -15,4 +15,4 @@
         android:singleLine="true"
         android:textColor="@color/color_FFFFFF"
         android:textSize="@dimen/ts_20" />
-</FrameLayout>
+</com.github.tvbox.osc.wxwz.view.MediaCenterFrameLayout>

@@ -135,6 +135,7 @@ public class DownloadDriveUtils {
         if (StorageDriveType.isMusicType(selectedItem.fileType)){
             if (currentDrive.getDriveType() == StorageDriveType.TYPE.LOCAL){
                 MusicDialog musicDialog = new MusicDialog(activity);
+                musicDialog.setPlayMode(musicDialog.PLAY_LOCAL);
                 musicDialog.playSong(activity,currentDrive.name + selectedItem.getAccessingPathStr() + selectedItem.name,viewModelD,selectedItem);
 
                 musicDialog.show();
@@ -309,6 +310,7 @@ public class DownloadDriveUtils {
         JsonObject config = currentDrive.getConfig();
         String targetPath = selectedItem.getAccessingPathStr() + selectedItem.name;
         MusicDialog musicDialog = new MusicDialog(activity);
+        musicDialog.setPlayMode(musicDialog.PLAY_ONLINE_WEBDAV);
         musicDialog.playSong(activity,config.get("url").getAsString() + targetPath,viewModelD,selectedItem);
         musicDialog.show();
     }

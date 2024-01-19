@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.tvbox.osc.wxwz.view.MediaCenterFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_series_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/vs_5"
-    android:background="@drawable/shape_source_series_focus"
+    android:background="@drawable/selector_media_center_btn"
     android:focusable="true"
     android:orientation="horizontal">
 
@@ -19,4 +19,4 @@
         android:singleLine="true"
         android:textColor="@android:color/white"
         android:textSize="@dimen/ts_20" />
-</FrameLayout>
+</com.github.tvbox.osc.wxwz.view.MediaCenterFrameLayout>

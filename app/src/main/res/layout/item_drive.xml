@@ -7,12 +7,12 @@
     android:layout_height="@dimen/vs_60"
     android:orientation="horizontal">
 
-    <LinearLayout
+    <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
         android:id="@+id/mItemLayout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/shape_setting_model_focus"
+        android:background="@drawable/selector_media_center_btn"
         android:clickable="true"
         android:focusable="true"
         android:gravity="start|center_vertical"
@@ -93,7 +93,7 @@
             android:visibility="gone"
             app:srcCompat="@drawable/icon_delete" />
 
-    </LinearLayout>
+    </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
     <ImageView
         android:id="@+id/imgConfig"

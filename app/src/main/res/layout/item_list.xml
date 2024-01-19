@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.tvbox.osc.wxwz.view.MediaCenterFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/shape_user_focus"
+    android:background="@drawable/selector_media_center_no_focus_btn"
     android:focusable="true">
 
 
@@ -49,4 +49,4 @@
     </LinearLayout>
 
 
-</FrameLayout>
+</com.github.tvbox.osc.wxwz.view.MediaCenterFrameLayout>

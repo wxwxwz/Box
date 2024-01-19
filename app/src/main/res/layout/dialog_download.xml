@@ -76,13 +76,13 @@
         android:layout_gravity="center"
         android:orientation="horizontal">
 
-        <TextView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
             android:id="@+id/leftBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/vs_10"
-            android:background="@drawable/rectangle_dialog_button_selector"
+            android:background="@drawable/selector_media_center_btn"
             android:focusable="true"
             android:gravity="center"
             android:paddingLeft="@dimen/vs_25"
@@ -93,14 +93,13 @@
             android:textColor="@color/color_FFFFFF"
             android:textSize="@dimen/ts_22" />
 
-        <TextView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
             android:id="@+id/rightBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/vs_10"
-
-            android:background="@drawable/rectangle_dialog_button_selector"
+            android:background="@drawable/selector_media_center_btn"
             android:focusable="true"
             android:gravity="center"
             android:paddingLeft="@dimen/vs_25"

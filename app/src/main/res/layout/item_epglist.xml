@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.github.tvbox.osc.wxwz.view.MediaCenterLLButton xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:gravity="bottom"
     android:id="@+id/cl_epg"
-    android:background="@drawable/shape_live_select"
+    android:background="@drawable/selector_media_center_btn"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/vs_10"
@@ -75,4 +75,4 @@
             android:padding="@dimen/vs_5" />
     </LinearLayout>
 
-</LinearLayout>
+</com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>

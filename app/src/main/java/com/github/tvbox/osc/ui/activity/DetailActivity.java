@@ -576,7 +576,7 @@ public class DetailActivity extends BaseActivity {
                     setTextShow(tvDes, getString(R.string.det_des), removeHtmlTag(mVideo.des));
                     if (!TextUtils.isEmpty(mVideo.pic)) {
                         // takagen99 : Use Glide instead : Rounding Radius is in pixel
-                        ImgUtil.load(mVideo.pic, ivThumb, 14);
+                        ImgUtil.load(mVideo.pic, ivThumb, 1);
                     } else {
                         ivThumb.setImageResource(R.drawable.img_loading_placeholder);
                     }

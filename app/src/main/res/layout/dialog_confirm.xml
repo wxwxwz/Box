@@ -39,14 +39,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <TextView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
             android:id="@+id/btnConfirm"
             android:layout_width="@dimen/vs_50"
             android:layout_height="@dimen/vs_50"
             android:layout_margin="@dimen/vs_10"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/button_dialog_main"
+            android:background="@drawable/selector_media_center_btn"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -60,14 +60,14 @@
             android:textColorHint="@color/color_FFFFFF_50"
             android:textSize="@dimen/ts_20" />
 
-        <TextView
+        <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
             android:id="@+id/btnCancel"
             android:layout_width="@dimen/vs_50"
             android:layout_height="@dimen/vs_50"
             android:layout_margin="@dimen/vs_10"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@drawable/button_dialog_main"
+            android:background="@drawable/selector_media_center_btn"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"

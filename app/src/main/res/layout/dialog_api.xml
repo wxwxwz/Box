@@ -82,13 +82,13 @@
                             android:textColorHint="@color/color_FFFFFF_50"
                             android:textSize="@dimen/ts_22" />
 
-                        <LinearLayout
+                        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
                             android:id="@+id/apiHistory"
                             android:layout_width="@dimen/vs_80"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/vs_5"
                             android:layout_marginLeft="@dimen/vs_5"
-                            android:background="@drawable/shape_setting_model_focus"
+                            android:background="@drawable/selector_media_center_btn"
                             android:focusable="true"
                             android:gravity="center"
                             android:orientation="horizontal"
@@ -99,7 +99,7 @@
                                 android:layout_height="@dimen/vs_30"
                                 android:focusable="true"
                                 android:src="@drawable/hm_history" />
-                        </LinearLayout>
+                        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
                     </LinearLayout>
 
@@ -132,13 +132,13 @@
                             android:textColorHint="@color/color_FFFFFF_50"
                             android:textSize="@dimen/ts_22" />
 
-                        <LinearLayout
+                        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
                             android:id="@+id/liveHistory"
                             android:layout_width="@dimen/vs_80"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/vs_5"
                             android:layout_marginLeft="@dimen/vs_5"
-                            android:background="@drawable/shape_setting_model_focus"
+                            android:background="@drawable/selector_media_center_btn"
                             android:focusable="true"
                             android:gravity="center"
                             android:orientation="horizontal"
@@ -149,7 +149,7 @@
                                 android:layout_height="@dimen/vs_30"
                                 android:focusable="true"
                                 android:src="@drawable/hm_history" />
-                        </LinearLayout>
+                        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
                     </LinearLayout>
 
@@ -182,13 +182,13 @@
                             android:textColorHint="@color/color_FFFFFF_50"
                             android:textSize="@dimen/ts_22" />
 
-                        <LinearLayout
+                        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
                             android:id="@+id/EPGHistory"
                             android:layout_width="@dimen/vs_80"
                             android:layout_height="match_parent"
                             android:layout_marginStart="@dimen/vs_5"
                             android:layout_marginLeft="@dimen/vs_5"
-                            android:background="@drawable/shape_setting_model_focus"
+                            android:background="@drawable/selector_media_center_btn"
                             android:focusable="true"
                             android:gravity="center"
                             android:orientation="horizontal"
@@ -199,7 +199,7 @@
                                 android:layout_height="@dimen/vs_30"
                                 android:focusable="true"
                                 android:src="@drawable/hm_history" />
-                        </LinearLayout>
+                        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
                     </LinearLayout>
 
@@ -214,13 +214,13 @@
                 android:padding="@dimen/vs_5"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                     android:id="@+id/storagePermission"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:background="@drawable/button_dialog_main"
+                    android:background="@drawable/selector_media_center_btn"
                     android:focusable="true"
                     android:gravity="center"
                     android:padding="@dimen/vs_10"
@@ -228,13 +228,13 @@
                     android:textColor="@color/color_FFFFFF"
                     android:textSize="@dimen/ts_22" />
 
-                <TextView
+                <com.github.tvbox.osc.wxwz.view.MediaCenterTextViewButton
                     android:id="@+id/inputSubmit"
                     android:layout_width="@dimen/vs_80"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/vs_5"
-                    android:background="@drawable/button_dialog_main"
+                    android:background="@drawable/selector_media_center_btn"
                     android:focusable="true"
                     android:gravity="center"
                     android:padding="@dimen/vs_10"

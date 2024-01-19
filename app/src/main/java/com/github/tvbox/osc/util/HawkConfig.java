@@ -54,6 +54,8 @@ public class HawkConfig {
     public static final String THEME_WALLPAPER_URL = "theme_wallpaper_url";
 	public static final String THEME_WALLPAPER_URL_HISTORY = "theme_wallpaper_url_history";
     public static final String BACKGROUND_PLAY_TYPE = "background_play_type";
+    public static final String FAST_SEARCH_MODE = "fast_search_mode";
+    public static final String SCREEN_DISPLAY = "screen_display";
 
     // Live Settings
     public static final String LIVE_CHANNEL = "last_live_channel_name";

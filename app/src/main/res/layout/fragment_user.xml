@@ -14,7 +14,9 @@
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        >
         <LinearLayout
             android:id="@+id/tvUserHome"
             android:layout_width="wrap_content"
@@ -25,19 +27,19 @@
             android:focusableInTouchMode="false"
             android:orientation="horizontal">
 
-        <LinearLayout
+        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
             android:id="@+id/tvHistory"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/vs_100"
             android:layout_gravity="center"
             android:layout_margin="@dimen/vs_5"
-            android:background="@drawable/shape_user_home"
-            android:clickable="false"
             android:focusable="true"
             android:minWidth="@dimen/vs_150"
             android:nextFocusUp="@id/mGridViewCategory"
             android:orientation="horizontal"
-            android:padding="@dimen/vs_15">
+            android:padding="@dimen/vs_15"
+            android:background="@drawable/selector_media_center_btn"
+            >
 
             <ImageView
                 android:id="@+id/hm_history"
@@ -62,20 +64,20 @@
                 android:textSize="@dimen/ts_24"
                 android:textStyle="normal" />
 
-        </LinearLayout>
+        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
-        <LinearLayout
+        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
             android:id="@+id/tvLive"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/vs_100"
             android:layout_gravity="center"
             android:layout_margin="@dimen/vs_5"
-            android:background="@drawable/shape_user_home"
             android:clickable="false"
             android:focusable="true"
             android:minWidth="@dimen/vs_150"
             android:orientation="horizontal"
-            android:padding="@dimen/vs_15">
+            android:padding="@dimen/vs_15"
+            android:background="@drawable/selector_media_center_btn">
 
             <ImageView
                 android:id="@+id/hm_live"
@@ -100,20 +102,20 @@
                 android:textSize="@dimen/ts_24"
                 android:textStyle="normal" />
 
-        </LinearLayout>
+        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
-            <LinearLayout
+            <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
                 android:id="@+id/tvFavorite"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/vs_100"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/vs_5"
-                android:background="@drawable/shape_user_home"
                 android:clickable="false"
                 android:focusable="true"
                 android:minWidth="@dimen/vs_150"
                 android:orientation="horizontal"
-                android:padding="@dimen/vs_15">
+                android:padding="@dimen/vs_15"
+                android:background="@drawable/selector_media_center_btn">
 
                 <ImageView
                     android:id="@+id/hm_fav"
@@ -138,20 +140,20 @@
                     android:textSize="@dimen/ts_24"
                     android:textStyle="normal" />
 
-            </LinearLayout>
+            </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
-            <LinearLayout
+            <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
                 android:id="@+id/tvSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/vs_100"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/vs_5"
-                android:background="@drawable/shape_user_home"
                 android:clickable="false"
                 android:focusable="true"
                 android:minWidth="@dimen/vs_150"
                 android:orientation="horizontal"
-                android:padding="@dimen/vs_15">
+                android:padding="@dimen/vs_15"
+                android:background="@drawable/selector_media_center_btn">
 
             <ImageView
                 android:id="@+id/hm_search"
@@ -176,21 +178,21 @@
                 android:textSize="@dimen/ts_24"
                 android:textStyle="normal" />
 
-        </LinearLayout>
+        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
 
-        <LinearLayout
+        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
             android:id="@+id/tvPush"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/vs_100"
             android:layout_gravity="center"
             android:layout_margin="@dimen/vs_5"
-            android:background="@drawable/shape_user_home"
             android:clickable="false"
             android:focusable="true"
             android:minWidth="@dimen/vs_150"
             android:orientation="horizontal"
-            android:padding="@dimen/vs_15">
+            android:padding="@dimen/vs_15"
+            android:background="@drawable/selector_media_center_btn">
 
             <ImageView
                 android:id="@+id/hm_push"
@@ -215,20 +217,20 @@
                 android:textSize="@dimen/ts_24"
                 android:textStyle="normal" />
 
-        </LinearLayout>
+        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
-        <LinearLayout
+        <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
             android:id="@+id/tvDrive"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/vs_100"
             android:layout_gravity="center"
             android:layout_margin="@dimen/vs_5"
-            android:background="@drawable/shape_user_home"
             android:clickable="false"
             android:focusable="true"
             android:minWidth="@dimen/vs_150"
             android:orientation="horizontal"
-            android:padding="@dimen/vs_15">
+            android:padding="@dimen/vs_15"
+            android:background="@drawable/selector_media_center_btn">
 
             <ImageView
                 android:id="@+id/hm_drive"
@@ -253,20 +255,20 @@
                 android:textSize="@dimen/ts_24"
                 android:textStyle="normal" />
 
-        </LinearLayout>
+        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
-            <LinearLayout
+            <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
                 android:id="@+id/tvApp"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/vs_100"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/vs_5"
-                android:background="@drawable/shape_user_home"
                 android:clickable="false"
                 android:focusable="true"
                 android:minWidth="@dimen/vs_150"
                 android:orientation="horizontal"
-                android:padding="@dimen/vs_15">
+                android:padding="@dimen/vs_15"
+                android:background="@drawable/selector_media_center_btn">
 
                 <ImageView
                     android:id="@+id/hm_app"
@@ -291,21 +293,21 @@
                     android:textSize="@dimen/ts_24"
                     android:textStyle="normal" />
 
-            </LinearLayout>
+            </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
-            <LinearLayout
+            <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
                 android:id="@+id/tvSetting"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/vs_100"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/vs_5"
-                android:background="@drawable/shape_user_home"
                 android:clickable="false"
                 android:focusable="true"
                 android:minWidth="@dimen/vs_150"
                 android:orientation="horizontal"
                 android:visibility="gone"
-                android:padding="@dimen/vs_15">
+                android:padding="@dimen/vs_15"
+                android:background="@drawable/selector_media_center_btn">
 
             <ImageView
                 android:id="@+id/hm_settings"
@@ -330,8 +332,45 @@
                 android:textSize="@dimen/ts_24"
                 android:textStyle="normal" />
 
-        </LinearLayout>
+        </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 
+            <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
+                android:id="@+id/tvMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/vs_100"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/vs_5"
+                android:clickable="false"
+                android:focusable="true"
+                android:minWidth="@dimen/vs_150"
+                android:orientation="horizontal"
+                android:padding="@dimen/vs_15"
+                android:background="@drawable/selector_media_center_btn">
+
+                <ImageView
+                    android:id="@+id/hm_music"
+                    android:layout_width="@dimen/vs_40"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/vs_3"
+                    android:alpha="0.9"
+                    app:srcCompat="@drawable/ic_music" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:padding="@dimen/vs_3"
+                    android:text="音乐"
+                    android:textColor="@color/color_FFFFFF_90"
+                    android:textSize="@dimen/ts_24"
+                    android:textStyle="normal" />
+
+            </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
         </LinearLayout>
 
 

@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.github.tvbox.osc.wxwz.view.MediaCenterLLButton
         android:id="@+id/filterRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@drawable/shape_dialog_filter_bg"
+        android:background="@drawable/selector_media_center_btn"
         android:orientation="vertical"
         android:padding="@dimen/vs_20">
 
-    </LinearLayout>
+    </com.github.tvbox.osc.wxwz.view.MediaCenterLLButton>
 </FrameLayout>

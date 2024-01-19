@@ -136,7 +136,7 @@ public abstract class BaseLabelListView<T> extends LinearLayout implements
 				final float itemWidth = paint.measureText(getLabelName(data))
 						+ itemPadding;
 				labelText.setFocusable(true);
-				labelText.setBackgroundResource(R.drawable.rectangle_movie_category_item_selector);
+				labelText.setBackgroundResource(R.drawable.selector_media_center_btn);
 				labelText.setText(getLabelName(data));
 
 				if (remainWidth > itemWidth) {
